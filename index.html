@@ -28,7 +28,7 @@
     .btn { width: 100%; padding: 11px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.85rem; }
     .btn-buy { background: #0284c7; color: #fff; }
     .btn-sell { background: #dc2626; color: #fff; }
-    .btn-calc { background: linear-gradient(135deg, #10b981, #0284c7); color: #fff; font-size: 1rem; margin-top: 6px; }
+    .btn-calc { background: linear-gradient(135deg, #10b981, #0284c7); color: #fff; font-size: 1rem; margin-top: 8px; }
     .btn-refresh { background: #1e293b; color: var(--green); border: 1px solid var(--green); padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; cursor: pointer; font-weight: 800; }
     .btn-sm { background: #1e293b; color: var(--blue); padding: 5px 10px; font-size: 0.7rem; border-radius: 6px; border: 1px solid #334155; }
     
@@ -90,18 +90,17 @@
       </div>
       
       <div class="grid-3">
-        <div><label>Entry Price <span id="syncTag" class="val-green">(LIVE)</span></label><input type="number" id="entryPrice" value="4221" step="any" oninput="calculate()"></div>
-        <div><label>Stop Loss ($)</label><input type="number" id="slAmount" value="500" oninput="calculate()"></div>
-        <div><label>Target ($)</label><input type="number" id="tpAmount" value="1500" oninput="calculate()"></div>
+        <div><label>Entry Price <span id="syncTag" class="val-green">(LIVE)</span></label><input type="number" id="entryPrice" value="4221" step="any"></div>
+        <div><label>Stop Loss ($)</label><input type="number" id="slAmount" value="500"></div>
+        <div><label>Target ($)</label><input type="number" id="tpAmount" value="1500"></div>
       </div>
 
-      <!-- PRICE BASED INPUTS -->
       <div class="grid-2">
-        <div><label>SL Price</label><input type="number" id="slPrice" value="4229" step="any" oninput="calculate()"></div>
-        <div><label>TP Price</label><input type="number" id="tpPrice" value="4180" step="any" oninput="calculate()"></div>
+        <div><label>SL Price</label><input type="number" id="slPrice" value="4213" step="any"></div>
+        <div><label>TP Price (AUTO)</label><input type="number" id="tpPrice" value="4245" step="any" readonly style="background:#0f172a; color:var(--green); font-weight:800;"></div>
       </div>
 
-      <button class="btn btn-calc" onclick="calculate()">CALCULATE RISK & LOT 🚀</button>
+      <button class="btn btn-calc" onclick="calculate()">CALCULATE 🚀</button>
     </div>
 
     <div class="card">
@@ -113,8 +112,8 @@
       </div>
       <div class="grid-3" style="margin-top:6px;">
         <div class="res-box"><label>SL Difference</label><div id="resSLDiff" class="res-val">8.00 Pts</div></div>
-        <div class="res-box"><label>TP Difference</label><div id="resTPDiff" class="res-val">41.00 Pts</div></div>
-        <div class="res-box"><label>R : R</label><div id="resRR" class="res-val val-blue">1 : 5.13</div></div>
+        <div class="res-box"><label>TP Difference</label><div id="resTPDiff" class="res-val">24.00 Pts</div></div>
+        <div class="res-box"><label>R : R</label><div id="resRR" class="res-val val-blue">1 : 3.00</div></div>
       </div>
     </div>
   </div>
@@ -214,7 +213,7 @@
   </div>
 
   <script>
-    let tradeDir = 'SELL';
+    let tradeDir = 'BUY';
     let accounts = JSON.parse(localStorage.getItem('suraj_accs_v2')) || [{ name: "FTMO 100K", size: 100000, equity: 98500, dayStart: 100000, target: 10000 }];
     let activeAcc = 0;
 
@@ -313,32 +312,44 @@
       const tpAmount = parseFloat(document.getElementById('tpAmount').value) || 0;
       const entry = parseFloat(document.getElementById('entryPrice').value) || 0;
       const slPrice = parseFloat(document.getElementById('slPrice').value) || 0;
-      const tpPrice = parseFloat(document.getElementById('tpPrice').value) || 0;
       const equity = parseFloat(document.getElementById('accEquity')?.value) || 100000;
       const sym = document.getElementById('instrument').value;
 
-      // Price difference calculation
+      // 1. Calculate SL Difference in Points
       const slDiff = Math.abs(entry - slPrice);
-      const tpDiff = Math.abs(tpPrice - entry);
 
-      // Contract Tick Multiplier based on Instrument
-      let contractMultiplier = 100; // XAUUSD default (1 Lot = 100 oz)
+      // 2. Calculate Risk:Reward Multiplier Ratio based on $ Risk and $ Target
+      const rrRatio = (slAmount > 0) ? (tpAmount / slAmount) : 0;
+      const tpDiff = slDiff * rrRatio;
+
+      // 3. Automatic TP Price Calculation based on Direction
+      let computedTP = 0;
+      if (tradeDir === 'BUY') {
+        computedTP = entry + tpDiff;
+      } else {
+        computedTP = entry - tpDiff;
+      }
+      document.getElementById('tpPrice').value = computedTP.toFixed(2);
+
+      // 4. Contract Tick Multiplier based on Instrument
+      let contractMultiplier = 100; // Gold: 1 Lot = 100 oz
       if (sym === 'USTECH100' || sym === 'NAS100') {
-        contractMultiplier = 1;  // Indices (1 Contract = $1 per point)
+        contractMultiplier = 1;  // Indices: 1 Contract = $1 per point
       } else if (sym === 'WTI') {
-        contractMultiplier = 1000; // Oil (1 Lot = 1000 barrels)
+        contractMultiplier = 1000; // Oil: 1 Lot = 1000 barrels
       }
 
-      // Lot Calculation = Risk USD / (SL Diff * Multiplier)
+      // 5. Lot Calculation = Risk USD / (SL Diff * Multiplier)
       let calcLot = (slDiff > 0) ? (slAmount / (slDiff * contractMultiplier)) : 0;
 
+      // Update Results
       document.getElementById('resRiskUSD').innerText = `$${slAmount.toFixed(2)}`;
       document.getElementById('resRiskPct').innerText = `${((slAmount / equity) * 100).toFixed(2)}%`;
       document.getElementById('resLot').innerText = calcLot.toFixed(2);
 
       document.getElementById('resSLDiff').innerText = `${slDiff.toFixed(2)} Pts`;
       document.getElementById('resTPDiff').innerText = `${tpDiff.toFixed(2)} Pts`;
-      document.getElementById('resRR').innerText = `1 : ${(slDiff > 0 ? (tpDiff / slDiff) : 0).toFixed(2)}`;
+      document.getElementById('resRR').innerText = `1 : ${rrRatio.toFixed(2)}`;
     }
 
     function renderAccs() {
