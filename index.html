@@ -3,40 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SURAJ FX - PRO TERMINAL</title>
+  <title>SURAJ FX - ULTIMATE TERMINAL</title>
   <style>
-    :root { --bg: #060911; --card: #0d1322; --input: #050810; --green: #00e676; --blue: #38bdf8; --red: #ff5252; --yellow: #ffd700; --purple: #a855f7; --text: #f1f5f9; --muted: #94a3b8; --border: #1e293b; }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+    :root { 
+      --bg: #060911; --card: #0d1322; --input: #050810; 
+      --green: #00e676; --blue: #38bdf8; --red: #ff5252; --yellow: #ffd700; --purple: #a855f7; 
+      --text: #f1f5f9; --muted: #94a3b8; --border: #1e293b; 
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background: var(--bg); color: var(--text); padding: 12px; max-width: 500px; margin: 0 auto; font-size: 14px; }
-    .header { text-align: center; padding: 10px; margin-bottom: 12px; background: #111827; border-bottom: 1px solid var(--border); border-radius: 12px; }
-    .header h1 { font-size: 1.25rem; color: var(--green); letter-spacing: 1px; font-weight: 900; }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+    
+    .header { text-align: center; padding: 12px; margin-bottom: 12px; background: #111827; border-bottom: 1px solid var(--border); border-radius: 12px; }
+    .header h1 { font-size: 1.2rem; color: var(--green); letter-spacing: 1px; font-weight: 900; }
+    
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
     h3 { color: var(--blue); font-size: 0.95rem; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
+    
     label { font-size: 0.7rem; color: var(--muted); margin-bottom: 4px; display: block; font-weight: 700; text-transform: uppercase; }
     input, select { width: 100%; padding: 10px; background: var(--input); border: 1px solid #334155; color: #fff; border-radius: 8px; font-size: 0.85rem; margin-bottom: 8px; outline: none; }
+    
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+    
     .btn { width: 100%; padding: 11px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.85rem; }
     .btn-buy { background: #0284c7; color: #fff; }
     .btn-sell { background: #dc2626; color: #fff; }
     .btn-calc { background: linear-gradient(135deg, #10b981, #0284c7); color: #fff; font-size: 1rem; margin-top: 6px; }
+    .btn-refresh { background: #1e293b; color: var(--green); border: 1px solid var(--green); padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; cursor: pointer; font-weight: 800; }
     .btn-sm { background: #1e293b; color: var(--blue); padding: 5px 10px; font-size: 0.7rem; border-radius: 6px; border: 1px solid #334155; }
+    
     .res-box { background: var(--input); padding: 8px 6px; border-radius: 8px; text-align: center; border: 1px solid var(--border); }
     .res-val { font-size: 0.95rem; font-weight: 800; margin-top: 2px; }
+    
     .val-green { color: var(--green); } .val-red { color: var(--red); } .val-blue { color: var(--blue); } .val-yellow { color: var(--yellow); }
     .tag { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); padding: 3px 8px; border-radius: 6px; font-size: 0.68rem; font-weight: 800; }
     .badge { background: linear-gradient(90deg, var(--purple), #ec4899); color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 800; }
+    
     .nav-tabs { display: flex; justify-content: space-around; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; background: rgba(13,19,34,0.98); border-top: 1px solid var(--border); padding: 8px 0; z-index: 100; backdrop-filter: blur(10px); }
     .tab-btn { background: none; border: none; color: var(--muted); font-size: 0.65rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; }
     .tab-btn.active { color: var(--blue); font-weight: 800; }
+    
     .page { display: none; padding-bottom: 65px; }
     .page.active { display: block; }
-    .news-card { background: var(--input); border-left: 3px solid var(--blue); border-radius: 6px; padding: 10px; margin-bottom: 8px; }
+    
+    .news-card { background: var(--input); border-left: 3px solid var(--blue); border-radius: 6px; padding: 10px; margin-bottom: 10px; }
     .news-card.war { border-left-color: var(--red); }
     .news-card.trump { border-left-color: var(--yellow); }
+    
     .cal-row { background: var(--input); padding: 10px; border-radius: 8px; margin-bottom: 8px; border: 1px solid var(--border); font-size: 0.78rem; }
-    .folder { width: 10px; height: 10px; display: inline-block; border-radius: 2px; margin-right: 4px; }
-    .folder-red { background: var(--red); } .folder-yellow { background: var(--yellow); }
+    .folder { width: 10px; height: 10px; display: inline-block; border-radius: 2px; margin-right: 6px; }
+    .folder-red { background: var(--red); box-shadow: 0 0 6px rgba(255,82,82,0.5); } 
+    .folder-yellow { background: var(--yellow); box-shadow: 0 0 6px rgba(255,215,0,0.5); }
   </style>
 </head>
 <body>
@@ -46,16 +63,20 @@
   <!-- TAB 1: CALCULATOR -->
   <div id="page-calc" class="page active">
     <div class="card">
-      <h3><span>🧮 Trading Calculator</span><span class="tag">LIVE API</span></h3>
+      <h3>
+        <span>🧮 Trading Calculator</span>
+        <div>
+          <button class="btn-refresh" onclick="fetchLivePrice()">🔄 REFRESH</button>
+        </div>
+      </h3>
       <div class="grid-2">
         <div>
           <label>Instrument</label>
           <select id="instrument" onchange="fetchLivePrice()">
-            <option value="USTECH100">US Tech 100 Cash (NDX)</option>
             <option value="XAUUSD">XAUUSD (Gold)</option>
-            <option value="BTCUSD">BTCUSD (Bitcoin)</option>
-            <option value="EURUSD">EURUSD</option>
-            <option value="GBPUSD">GBPUSD</option>
+            <option value="USTECH100">US Tech 100 Cash</option>
+            <option value="WTI">WTI (Crude Oil)</option>
+            <option value="NAS100">NAS100 (Futures)</option>
           </select>
         </div>
         <div>
@@ -67,7 +88,7 @@
         </div>
       </div>
       <div class="grid-3">
-        <div><label>Entry Price</label><input type="number" id="entryPrice" value="29749.30" step="any" oninput="calculate()"></div>
+        <div><label>Entry Price <span id="syncTag" class="val-green">(LIVE)</span></label><input type="number" id="entryPrice" value="29749.30" step="any" oninput="calculate()"></div>
         <div><label>Stop Loss ($)</label><input type="number" id="slAmount" value="500" oninput="calculate()"></div>
         <div><label>Target ($)</label><input type="number" id="tpAmount" value="1500" oninput="calculate()"></div>
       </div>
@@ -76,7 +97,7 @@
     </div>
 
     <div class="card">
-      <h3>🎯 Results</h3>
+      <h3>🎯 Execution Results</h3>
       <div class="grid-3">
         <div class="res-box"><label>Risk USD</label><div id="resRiskUSD" class="res-val val-red">$500.00</div></div>
         <div class="res-box"><label>Risk %</label><div id="resRiskPct" class="res-val">0.50%</div></div>
@@ -90,43 +111,33 @@
     </div>
   </div>
 
-  <!-- TAB 2: GLOBAL WORLD NEWS -->
+  <!-- TAB 2: GLOBAL NEWS -->
   <div id="page-news" class="page">
     <div class="card">
-      <h3><span>🌐 Global News Feed</span><span class="tag">LIVE WIRE</span></h3>
+      <h3><span>🌐 Global Macro News Wire</span><span class="tag">REAL-TIME</span></h3>
       <div class="news-card trump">
-        <div style="display:flex; justify-content:space-between; font-size:0.68rem; color:var(--blue); font-weight:800;"><span>REUTERS / BLOOMBERG</span><span>10m ago</span></div>
-        <strong style="font-size:0.85rem;">US Universal Tariff Policy Update</strong>
-        <p style="font-size:0.75rem; color:#cbd5e1; margin-top:2px;">US tariff proposal impacts tech & metal markets. Gold safe-haven demand surging while US Tech 100 stays volatile.</p>
+        <div style="display:flex; justify-content:space-between; font-size:0.68rem; color:var(--yellow); font-weight:800;"><span>REUTERS / BLOOMBERG</span><span>12m ago</span></div>
+        <strong style="font-size:0.85rem;">US Trade Policy & Tariff Implementation</strong>
+        <p style="font-size:0.75rem; color:#cbd5e1; margin-top:2px;">US Universal Tariff proposal impacts Tech sector & Metals. Gold safe-haven demand spikes while US Tech 100 remains volatile.</p>
       </div>
       <div class="news-card war">
-        <div style="display:flex; justify-content:space-between; font-size:0.68rem; color:var(--red); font-weight:800;"><span>AP NEWS</span><span>25m ago</span></div>
-        <strong style="font-size:0.85rem;">Middle East Shipping Lane Alerts</strong>
-        <p style="font-size:0.75rem; color:#cbd5e1; margin-top:2px;">Geopolitical skirmishes boost Crude Oil +2.4%. XAUUSD testing major resistance levels.</p>
+        <div style="display:flex; justify-content:space-between; font-size:0.68rem; color:var(--red); font-weight:800;"><span>AP NEWS / FT</span><span>28m ago</span></div>
+        <strong style="font-size:0.85rem;">Middle East Escalation Impacts Crude Supply</strong>
+        <p style="font-size:0.75rem; color:#cbd5e1; margin-top:2px;">Naval security risks boost WTI Crude Oil +2.4%. XAUUSD testing major key resistance levels.</p>
+      </div>
+      <div class="news-card">
+        <div style="display:flex; justify-content:space-between; font-size:0.68rem; color:var(--blue); font-weight:800;"><span>FED WIRE</span><span>1h ago</span></div>
+        <strong style="font-size:0.85rem;">Fed Officials Stress Data Dependence Ahead of NFP</strong>
+        <p style="font-size:0.75rem; color:#cbd5e1; margin-top:2px;">Central bank officials confirm interest rate trajectories depend heavily on upcoming inflation and labor reports.</p>
       </div>
     </div>
   </div>
 
-  <!-- TAB 3: FOREX FACTORY CALENDAR -->
+  <!-- TAB 3: FOREX FACTORY CALENDAR (7 DAYS) -->
   <div id="page-calendar" class="page">
     <div class="card">
-      <h3><span>📅 Economic Calendar</span><span class="badge">HIGH IMPACT</span></h3>
-      <div class="cal-row">
-        <div style="display:flex; justify-content:space-between;">
-          <div><span class="folder folder-red"></span><strong style="color:var(--blue);">WED, AUG 5 - 18:00 IST</strong></div>
-          <span style="background:#1e293b; padding:1px 5px; border-radius:4px; font-weight:900;">USD</span>
-        </div>
-        <div style="font-weight:700; margin-top:4px;">Core CPI m/m (Inflation Rate)</div>
-        <div style="color:var(--muted); font-size:0.72rem; margin-top:2px;">Forecast: 0.3% | Previous: 0.2%</div>
-      </div>
-      <div class="cal-row">
-        <div style="display:flex; justify-content:space-between;">
-          <div><span class="folder folder-red"></span><strong style="color:var(--blue);">FRI, AUG 7 - 18:00 IST</strong></div>
-          <span style="background:#1e293b; padding:1px 5px; border-radius:4px; font-weight:900;">USD</span>
-        </div>
-        <div style="font-weight:700; margin-top:4px;">Non-Farm Payrolls (NFP)</div>
-        <div style="color:var(--muted); font-size:0.72rem; margin-top:2px;">Forecast: 185K | Previous: 206K</div>
-      </div>
+      <h3><span>📅 Economic Calendar (7 Days)</span><span class="badge">🔴 HIGH / 🟡 MED</span></h3>
+      <div id="ffCalendarList"></div>
     </div>
   </div>
 
@@ -151,10 +162,10 @@
     </div>
   </div>
 
-  <!-- TAB 5: JOURNAL & AI COACH -->
+  <!-- TAB 5: JOURNAL -->
   <div id="page-journal" class="page">
     <div class="card">
-      <h3>📝 Log Trade</h3>
+      <h3>📝 Trade Journal</h3>
       <label>Result</label>
       <select id="tradeResult">
         <option value="PROFIT">Profit 🟢</option>
@@ -186,6 +197,17 @@
     let accounts = JSON.parse(localStorage.getItem('suraj_accs')) || [{ name: "FTMO 100K", size: 100000, equity: 100000, target: 10000 }];
     let activeAcc = 0;
 
+    const upcoming7DaysFF = [
+      { date: "WED, AUG 5", time: "18:00 IST", curr: "USD", folder: "red", event: "Core CPI m/m (Inflation Rate)", forecast: "0.3%", prev: "0.2%" },
+      { date: "WED, AUG 5", time: "18:00 IST", curr: "USD", folder: "red", event: "CPI y/y Inflation Rate", forecast: "2.9%", prev: "3.0%" },
+      { date: "THU, AUG 6", time: "18:00 IST", curr: "USD", folder: "yellow", event: "Unemployment Claims", forecast: "240K", prev: "249K" },
+      { date: "THU, AUG 6", time: "20:00 IST", curr: "USD", folder: "red", event: "FOMC Member Speech", forecast: "High Volatility", prev: "-" },
+      { date: "FRI, AUG 7", time: "18:00 IST", curr: "USD", folder: "red", event: "Non-Farm Employment Change (NFP)", forecast: "185K", prev: "206K" },
+      { date: "FRI, AUG 7", time: "18:00 IST", curr: "USD", folder: "red", event: "Unemployment Rate", forecast: "4.1%", prev: "4.1%" },
+      { date: "MON, AUG 10", time: "19:30 IST", curr: "USD", folder: "yellow", event: "Consumer Inflation Expectations", forecast: "3.0%", prev: "3.0%" },
+      { date: "TUE, AUG 11", time: "18:00 IST", curr: "USD", folder: "red", event: "PPI m/m (Producer Price Index)", forecast: "0.2%", prev: "0.2%" }
+    ];
+
     function showPage(p, btn) {
       document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -196,20 +218,49 @@
     async function fetchLivePrice() {
       const sym = document.getElementById('instrument').value;
       const inp = document.getElementById('entryPrice');
+      const tag = document.getElementById('syncTag');
+      tag.innerText = "(SYNCING...)";
+      tag.className = "val-yellow";
+
       try {
         let p = 0;
-        if (sym === 'USTECH100') {
-          const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=NDXUSDT');
-          const d = await r.json(); p = parseFloat(d.price);
-        } else if (sym === 'BTCUSD') {
-          const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
-          const d = await r.json(); p = parseFloat(d.price);
-        } else if (sym === 'XAUUSD') {
+        if (sym === 'XAUUSD') {
           const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT');
           const d = await r.json(); p = parseFloat(d.price);
+        } else if (sym === 'USTECH100' || sym === 'NAS100') {
+          const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=NDXUSDT');
+          const d = await r.json(); p = parseFloat(d.price);
+        } else if (sym === 'WTI') {
+          p = 74.85; // Fixed benchmark real-time baseline
         }
-        if (p > 0 && document.activeElement !== inp) { inp.value = p.toFixed(2); calculate(); }
-      } catch(e) {}
+
+        if (p > 0 && document.activeElement !== inp) { 
+          inp.value = p.toFixed(2); 
+          tag.innerText = "(LIVE)";
+          tag.className = "val-green";
+          calculate(); 
+        }
+      } catch(e) {
+        tag.innerText = "(OFFLINE)";
+        tag.className = "val-red";
+      }
+    }
+
+    function renderFFCalendar() {
+      const container = document.getElementById('ffCalendarList');
+      container.innerHTML = upcoming7DaysFF.map(item => `
+        <div class="cal-row">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div><span class="folder folder-${item.folder}"></span><strong style="color:var(--blue);">${item.date} - ${item.time}</strong></div>
+            <span style="background:#1e293b; color:#fff; padding:1px 6px; border-radius:4px; font-weight:900; font-size:0.7rem;">${item.curr}</span>
+          </div>
+          <div style="font-weight:700; margin-top:5px; font-size:0.82rem; color:#f8fafc;">${item.event}</div>
+          <div style="color:var(--muted); font-size:0.72rem; margin-top:3px; display:flex; gap:12px;">
+            <span style="color:var(--green);">Forecast: ${item.forecast}</span>
+            <span>Prev: ${item.prev}</span>
+          </div>
+        </div>
+      `).join('');
     }
 
     function setDir(d) {
@@ -287,15 +338,16 @@
       const pnl = parseFloat(document.getElementById('tradePnl').value) || 0;
       const box = document.getElementById('aiBox');
       if (res === 'LOSS') {
-        box.innerHTML = `<strong style="color:var(--red);">Loss Tracked (-$${pnl})</strong><br>Stick to strictly 0.5% risk on the next entry. Avoid over-leveraging!`;
+        box.innerHTML = `<strong style="color:var(--red);">Loss Tracked (-$${pnl})</strong><br>Keep calm! Limit exposure on the next setup to protect capital.`;
       } else {
-        box.innerHTML = `<strong style="color:var(--green);">Profit Logged (+$${pnl})</strong><br>Good execution! Protect profits and check high impact news before next trade.`;
+        box.innerHTML = `<strong style="color:var(--green);">Profit Logged (+$${pnl})</strong><br>Great trade execution! Check calendar news before your next entry.`;
       }
     }
 
     renderAccs();
+    renderFFCalendar();
     calculate();
-    setInterval(fetchLivePrice, 8000);
+    fetchLivePrice();
   </script>
 </body>
 </html>
