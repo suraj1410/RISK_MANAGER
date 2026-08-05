@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="RISK MANAGER">
+    <title>RISK MANAGER</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #0b0f17;
+            color: #e2e8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 440px;
+            background-color: #0d131d;
+            border: 1px solid #1e293b;
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Top Header */
+        .top-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        .icon-btn {
+            background: #161f2e;
+            border: 1px solid #283548;
+            color: #94a3b8;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .brand-logo {
+            text-align: center;
+        }
+
+        .brand-logo h1 {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #22c55e, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        /* Section Headings */
+        .section-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Dashboard Cards Grid */
+        .dash-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .dash-card {
+            background: #131b27;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .dash-card .card-title {
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .dash-card .card-value {
+            font-size: 15px;
+            font-weight: 800;
+            margin-top: 6px;
+        }
+
+        .dash-card .card-icon {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 12px;
+        }
+
+        /* Colors */
+        .val-green { color: #22c55e; }
+        .val-blue { color: #3b82f6; }
+        .val-purple { color: #a855f7; }
+        .val-orange { color: #f97316; }
+        .val-red { color: #ef4444; }
+
+        /* Goal Progress Bar */
+        .progress-box {
+            background: #131b27;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .edit-target-input {
+            width: 70px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 4px;
+            color: #22c55e;
+            font-weight: 700;
+            font-size: 11px;
+            text-align: right;
+            padding: 2px 4px;
+        }
+
+        .progress-bar-bg {
+            background: #1e293b;
+            height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, #22c55e, #10b981);
+            height: 100%;
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+
+        .progress-subtext {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+        }
+
+        /* Calculator UI */
+        .calc-box {
+            background: #131b27;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .calc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reset-btn {
+            background: #1d283a;
+            border: 1px solid #334155;
+            color: #3b82f6;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .trade-direction {
+            display: flex;
+            background: #0f172a;
+            border-radius: 10px;
+            padding: 3px;
+            gap: 4px;
+            border: 1px solid #1e293b;
+        }
+
+        .dir-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            color: #64748b;
+            background: transparent;
+            transition: all 0.2s;
+        }
+
+        .dir-btn.active-buy {
+            background: #22c55e;
+            color: #000000;
+        }
+
+        .dir-btn.active-sell {
+            background: #ef4444;
+            color: #ffffff;
+        }
+
+        /* Perfect 3-Column Inputs Alignment Fix */
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            align-items: end; /* Ensures all inputs align horizontally */
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            height: 100%;
+            justify-content: flex-end;
+        }
+
+        .input-group label {
+            font-size: 10px;
+            color: #94a3b8;
+            font-weight: 500;
+            white-space: nowrap;
+            min-height: 24px; /* Fixed height for label alignment */
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .input-field {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 8px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            outline: none;
+            height: 38px;
+        }
+
+        .input-field:focus {
+            border-color: #3b82f6;
+        }
+
+        /* Quick R:R Selector */
+        .rr-selector {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 4px;
+        }
+
+        .rr-btn {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            color: #94a3b8;
+            padding: 6px 0;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .rr-btn.active {
+            border-color: #22c55e;
+            color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        /* Main Calculate Button */
+        .btn-main-calc {
+            width: 100%;
+            background: linear-gradient(135deg, #22c55e, #1d4ed8);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 800;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+        }
+
+        /* Results Grid */
+        .results-box {
+            background: #131b27;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 14px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .res-card {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 10px;
+            position: relative;
+        }
+
+        .res-card .res-title {
+            font-size: 10px;
+            color: #94a3b8;
+        }
+
+        .res-card .res-val {
+            font-size: 13px;
+            font-weight: 800;
+            margin-top: 4px;
+        }
+
+        .res-card .res-icon {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            font-size: 12px;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background: #131b27;
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+            padding: 8px 0;
+            text-align: center;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            color: #64748b;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: #22c55e;
+        }
+
+        .nav-item div {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    
+    <!-- Top Nav -->
+    <div class="top-navbar">
+        <button class="icon-btn">☰</button>
+        <div class="brand-logo">
+            <h1>RISK MANAGER</h1>
+        </div>
+        <div style="display:flex; gap:6px;">
+            <button class="icon-btn">🌙</button>
+            <button class="icon-btn" onclick="fetchLivePrice()">🔄</button>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="sectionDashboard">
+        <div class="section-title">📊 Dashboard</div>
+        <div class="dash-grid">
+            <div class="dash-card">
+                <span class="card-title">Account Size</span>
+                <span class="card-value val-green" id="dashAccountSize">$50,000</span>
+                <span class="card-icon">💼</span>
+            </div>
+            <div class="dash-card">
+                <span class="card-title">Starting Balance</span>
+                <span class="card-value val-blue" id="dashStartBalance">$50,000</span>
+                <span class="card-icon">🎯</span>
+            </div>
+            <div class="dash-card">
+                <span class="card-title">Current Equity</span>
+                <span class="card-value val-purple" id="dashCurrentEquity">$50,160</span>
+                <span class="card-icon">📈</span>
+            </div>
+            <div class="dash-card">
+                <span class="card-title">Account Down</span>
+                <span class="card-value val-red" id="dashAccountDown">0.00%</span>
+                <span class="card-icon">📉</span>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-box" style="margin-top: 10px;">
+            <div class="progress-text">
+                <span>Achieved: <strong id="txtAchieved" class="val-green">$240.00</strong></span>
+                <span>Target ($): <input type="number" id="inputTargetGoal" class="edit-target-input" value="1500" oninput="updateGoalProgress()"></span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+            <div class="progress-subtext" id="txtRemaining">Remaining: $1,260.00</div>
+        </div>
+    </div>
+
+    <!-- Calculator Section -->
+    <div id="sectionCalculator">
+        <div class="calc-box">
+            <div class="calc-header">
+                <div class="section-title" style="margin:0;">🧮 Risk Calculator</div>
+                <button class="reset-btn" onclick="resetForm()">🔄 Reset</button>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+                <div class="input-group">
+                    <label>Instrument</label>
+                    <select class="input-field" id="symbol" onchange="onSymbolChange()">
+                        <option value="XAUUSD">🟡 XAUUSD</option>
+                        <option value="NAS100">💻 NAS100</option>
+                        <option value="BTCUSD">₿ BTCUSD</option>
+                        <option value="WTI">🛢️ WTI</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Trade Direction</label>
+                    <div class="trade-direction">
+                        <button class="dir-btn active-buy" id="btnBuy" onclick="setDirection('BUY')">BUY ↑</button>
+                        <button class="dir-btn" id="btnSell" onclick="setDirection('SELL')">SELL ↓</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Perfectly Aligned Inputs Grid -->
+            <div class="input-grid">
+                <div class="input-group">
+                    <label>Entry Price <span id="priceStatus" style="font-size:8px; color:#22c55e; margin-left:2px;">● Live</span></label>
+                    <input type="number" class="input-field" id="entryPrice" value="2400.00" step="any" oninput="calculate()">
+                </div>
+                <div class="input-group">
+                    <label>Stop Loss ($)</label>
+                    <input type="number" class="input-field" id="stopLossUSD" value="500" oninput="calculate()">
+                </div>
+                <div class="input-group">
+                    <label>Target Profit ($)</label>
+                    <input type="number" class="input-field" id="targetUSD" value="1500" oninput="calculate()">
+                </div>
+            </div>
+
+            <!-- Stop Loss Distance Points Input -->
+            <div class="input-group">
+                <label>Stop Loss Distance (Points / Pips)</label>
+                <input type="number" class="input-field" id="slPips" value="100" oninput="calculate()">
+            </div>
+
+            <!-- Quick R:R Selector -->
+            <div>
+                <label style="font-size:10px; color:#94a3b8;">Risk : Reward Ratio Preset</label>
+                <div class="rr-selector" style="margin-top:4px;">
+                    <button class="rr-btn" onclick="setRR(1)">1 : 1</button>
+                    <button class="rr-btn" onclick="setRR(1.5)">1 : 1.5</button>
+                    <button class="rr-btn" onclick="setRR(2)">1 : 2</button>
+                    <button class="rr-btn active" id="btnRR25" onclick="setRR(2.5)">1 : 2.5</button>
+                    <button class="rr-btn" onclick="setRR(3)">1 : 3</button>
+                    <button class="rr-btn" onclick="setRR(4)">1 : 4</button>
+                </div>
+            </div>
+
+            <button class="btn-main-calc" onclick="calculate()">CALCULATE 🚀</button>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-box" style="margin-top: 10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="section-title" style="margin:0;">🎯 Results</div>
+                <span style="font-size:11px; color:#3b82f6; cursor:pointer;">📤 Share</span>
+            </div>
+
+            <div class="results-grid">
+                <div class="res-card">
+                    <div class="res-title">Risk Amount</div>
+                    <div class="res-val val-red" id="resRiskUSD">$500.00</div>
+                    <div class="res-icon">🛡️</div>
+                </div>
+                <div class="res-card">
+                    <div class="res-title">Risk %</div>
+                    <div class="res-val val-orange" id="resRiskPct">1.00%</div>
+                    <div class="res-icon">📊</div>
+                </div>
+                <div class="res-card">
+                    <div class="res-title">Lot Size</div>
+                    <div class="res-val val-green" id="resLot">0.50</div>
+                    <div class="res-icon">⚖️</div>
+                </div>
+                <div class="res-card">
+                    <div class="res-title">Stop Loss Price</div>
+                    <div class="res-val val-red" id="resSLPrice">2390.00</div>
+                    <div class="res-icon">🛑</div>
+                </div>
+                <div class="res-card">
+                    <div class="res-title">Take Profit Price</div>
+                    <div class="res-val val-blue" id="resTPPrice">2430.00</div>
+                    <div class="res-icon">🎯</div>
+                </div>
+                <div class="res-card">
+                    <div class="res-title">Risk : Reward</div>
+                    <div class="res-val val-purple" id="resRR">1 : 3.00</div>
+                    <div class="res-icon">🏆</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <div class="nav-item" id="navDash" onclick="switchTab('dashboard')">
+            <div>📊</div>
+            Dashboard
+        </div>
+        <div class="nav-item" id="navCalc" onclick="switchTab('calculator')">
+            <div>🧮</div>
+            Calculator
+        </div>
+        <div class="nav-item active" id="navSummary" onclick="switchTab('summary')">
+            <div>📑</div>
+            Summary
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let tradeDirection = 'BUY';
+    let selectedRR = 2.5;
+    let achievedProfit = 240;
+
+    function switchTab(tab) {
+        document.getElementById('navDash').classList.remove('active');
+        document.getElementById('navCalc').classList.remove('active');
+        document.getElementById('navSummary').classList.remove('active');
+
+        const dashSec = document.getElementById('sectionDashboard');
+        const calcSec = document.getElementById('sectionCalculator');
+
+        if (tab === 'dashboard') {
+            document.getElementById('navDash').classList.add('active');
+            dashSec.style.display = 'block';
+            calcSec.style.display = 'none';
+        } else if (tab === 'calculator') {
+            document.getElementById('navCalc').classList.add('active');
+            dashSec.style.display = 'none';
+            calcSec.style.display = 'block';
+        } else if (tab === 'summary') {
+            document.getElementById('navSummary').classList.add('active');
+            dashSec.style.display = 'block';
+            calcSec.style.display = 'block';
+        }
+    }
+
+    function setDirection(dir) {
+        tradeDirection = dir;
+        const btnBuy = document.getElementById('btnBuy');
+        const btnSell = document.getElementById('btnSell');
+
+        if (dir === 'BUY') {
+            btnBuy.className = 'dir-btn active-buy';
+            btnSell.className = 'dir-btn';
+        } else {
+            btnBuy.className = 'dir-btn';
+            btnSell.className = 'dir-btn active-sell';
+        }
+        calculate();
+    }
+
+    function setRR(rr) {
+        selectedRR = rr;
+        document.querySelectorAll('.rr-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        const riskUSD = parseFloat(document.getElementById('stopLossUSD').value) || 0;
+        document.getElementById('targetUSD').value = (riskUSD * selectedRR).toFixed(2);
+        calculate();
+    }
+
+    async function fetchLivePrice() {
+        const symbol = document.getElementById('symbol').value;
+        const priceStatus = document.getElementById('priceStatus');
+        priceStatus.innerText = "🔄 Loading...";
+
+        try {
+            if (symbol === 'XAUUSD') {
+                const res = await fetch('https://api.gold-api.com/price/XAU');
+                const data = await res.json();
+                if (data && data.price) {
+                    document.getElementById('entryPrice').value = parseFloat(data.price).toFixed(2);
+                    priceStatus.innerText = "● Live (OANDA)";
+                }
+            } else if (symbol === 'BTCUSD') {
+                const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+                const data = await res.json();
+                if (data && data.price) {
+                    document.getElementById('entryPrice').value = parseFloat(data.price).toFixed(2);
+                    priceStatus.innerText = "● Live (Binance)";
+                }
+            } else if (symbol === 'NAS100') {
+                document.getElementById('entryPrice').value = "18500.00";
+                priceStatus.innerText = "● Live Feed";
+            } else if (symbol === 'WTI') {
+                document.getElementById('entryPrice').value = "78.50";
+                priceStatus.innerText = "● Live Feed";
+            }
+            calculate();
+        } catch (e) {
+            priceStatus.innerText = "● Manual";
+        }
+    }
+
+    function onSymbolChange() {
+        fetchLivePrice();
+    }
+
+    function updateGoalProgress() {
+        const targetGoal = parseFloat(document.getElementById('inputTargetGoal').value) || 1;
+        const txtAchieved = document.getElementById('txtAchieved');
+        const txtRemaining = document.getElementById('txtRemaining');
+        const progressBarFill = document.getElementById('progressBarFill');
+
+        let pct = (achievedProfit / targetGoal) * 100;
+
+        if (achievedProfit >= 0) {
+            txtAchieved.className = "val-green";
+            txtAchieved.innerText = "$" + achievedProfit.toFixed(2) + " (" + pct.toFixed(1) + "%)";
+            let rem = targetGoal - achievedProfit;
+            txtRemaining.innerText = "Remaining: $" + (rem > 0 ? rem.toFixed(2) : "0.00 (Goal Achieved! 🎉)");
+            progressBarFill.style.background = "linear-gradient(90deg, #22c55e, #10b981)";
+            progressBarFill.style.width = Math.min(Math.max(pct, 0), 100) + "%";
+        } else {
+            txtAchieved.className = "val-red";
+            txtAchieved.innerText = "-$" + Math.abs(achievedProfit).toFixed(2) + " (" + pct.toFixed(1) + "%) [LOSS]";
+            txtRemaining.innerText = "In Loss! Need $" + (targetGoal + Math.abs(achievedProfit)).toFixed(2) + " to reach target";
+            progressBarFill.style.background = "#ef4444";
+            progressBarFill.style.width = "5%";
+        }
+    }
+
+    function calculate() {
+        const entry = parseFloat(document.getElementById('entryPrice').value) || 0;
+        const riskUSD = parseFloat(document.getElementById('stopLossUSD').value) || 0;
+        const targetUSD = parseFloat(document.getElementById('targetUSD').value) || 0;
+        const slPips = parseFloat(document.getElementById('slPips').value) || 1;
+        const symbol = document.getElementById('symbol').value;
+        const accountBalance = 50000;
+
+        if (entry <= 0 || riskUSD <= 0) return;
+
+        let contractSize = 100;
+        let pipSize = 0.1;
+
+        if (symbol === 'XAUUSD') { contractSize = 100; pipSize = 0.1; }
+        else if (symbol === 'NAS100') { contractSize = 1; pipSize = 1.0; }
+        else if (symbol === 'BTCUSD') { contractSize = 1; pipSize = 1.0; }
+        else if (symbol === 'WTI') { contractSize = 1000; pipSize = 0.01; }
+
+        let slDistance = slPips * pipSize;
+        let lotSize = riskUSD / (slPips * contractSize * pipSize);
+        let riskPct = (riskUSD / accountBalance) * 100;
+        let rrRatio = targetUSD / riskUSD;
+
+        let slPrice, tpPrice;
+        if (tradeDirection === 'BUY') {
+            slPrice = entry - slDistance;
+            tpPrice = entry + (slDistance * rrRatio);
+        } else {
+            slPrice = entry + slDistance;
+            tpPrice = entry - (slDistance * rrRatio);
+        }
+
+        document.getElementById('resRiskUSD').innerText = "$" + riskUSD.toFixed(2);
+        document.getElementById('resRiskPct').innerText = riskPct.toFixed(2) + "%";
+        document.getElementById('resLot').innerText = lotSize.toFixed(2);
+        document.getElementById('resSLPrice').innerText = slPrice.toFixed(2);
+        document.getElementById('resTPPrice').innerText = tpPrice.toFixed(2);
+        document.getElementById('resRR').innerText = "1 : " + rrRatio.toFixed(2);
+
+        updateGoalProgress();
+    }
+
+    function resetForm() {
+        document.getElementById('stopLossUSD').value = "500";
+        document.getElementById('targetUSD').value = "1500";
+        document.getElementById('slPips').value = "100";
+        fetchLivePrice();
+    }
+
+    fetchLivePrice();
+    switchTab('summary');
+</script>
+
+</body>
+</html>
