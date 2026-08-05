@@ -90,15 +90,15 @@
       </div>
       
       <div class="grid-3">
-        <div><label>Entry Price <span id="syncTag" class="val-green">(LIVE)</span></label><input type="number" id="entryPrice" value="4184.16" step="any" oninput="calculate()"></div>
+        <div><label>Entry Price <span id="syncTag" class="val-green">(LIVE)</span></label><input type="number" id="entryPrice" value="4221" step="any" oninput="calculate()"></div>
         <div><label>Stop Loss ($)</label><input type="number" id="slAmount" value="500" oninput="calculate()"></div>
         <div><label>Target ($)</label><input type="number" id="tpAmount" value="1500" oninput="calculate()"></div>
       </div>
 
       <!-- PRICE BASED INPUTS -->
       <div class="grid-2">
-        <div><label>SL Price</label><input type="number" id="slPrice" value="4174.16" step="any" oninput="calculate()"></div>
-        <div><label>TP Price</label><input type="number" id="tpPrice" value="4214.16" step="any" oninput="calculate()"></div>
+        <div><label>SL Price</label><input type="number" id="slPrice" value="4229" step="any" oninput="calculate()"></div>
+        <div><label>TP Price</label><input type="number" id="tpPrice" value="4180" step="any" oninput="calculate()"></div>
       </div>
 
       <button class="btn btn-calc" onclick="calculate()">CALCULATE RISK & LOT 🚀</button>
@@ -109,12 +109,12 @@
       <div class="grid-3">
         <div class="res-box"><label>Risk USD</label><div id="resRiskUSD" class="res-val val-red">$500.00</div></div>
         <div class="res-box"><label>Risk %</label><div id="resRiskPct" class="res-val">0.50%</div></div>
-        <div class="res-box"><label>Calculated Lot</label><div id="resLot" class="res-val val-green">0.50</div></div>
+        <div class="res-box"><label>Calculated Lot</label><div id="resLot" class="res-val val-green">0.62</div></div>
       </div>
       <div class="grid-3" style="margin-top:6px;">
-        <div class="res-box"><label>SL Difference</label><div id="resSLDiff" class="res-val">10.00 Pts</div></div>
-        <div class="res-box"><label>TP Difference</label><div id="resTPDiff" class="res-val">30.00 Pts</div></div>
-        <div class="res-box"><label>R : R</label><div id="resRR" class="res-val val-blue">1 : 3.00</div></div>
+        <div class="res-box"><label>SL Difference</label><div id="resSLDiff" class="res-val">8.00 Pts</div></div>
+        <div class="res-box"><label>TP Difference</label><div id="resTPDiff" class="res-val">41.00 Pts</div></div>
+        <div class="res-box"><label>R : R</label><div id="resRR" class="res-val val-blue">1 : 5.13</div></div>
       </div>
     </div>
   </div>
@@ -214,7 +214,7 @@
   </div>
 
   <script>
-    let tradeDir = 'BUY';
+    let tradeDir = 'SELL';
     let accounts = JSON.parse(localStorage.getItem('suraj_accs_v2')) || [{ name: "FTMO 100K", size: 100000, equity: 98500, dayStart: 100000, target: 10000 }];
     let activeAcc = 0;
 
@@ -259,16 +259,6 @@
           inp.value = p.toFixed(2); 
           tag.innerText = "(LIVE)";
           tag.className = "val-green";
-          
-          // Auto adjust initial SL / TP default levels when live price updates
-          if (tradeDir === 'BUY') {
-            document.getElementById('slPrice').value = (p - 10.00).toFixed(2);
-            document.getElementById('tpPrice').value = (p + 30.00).toFixed(2);
-          } else {
-            document.getElementById('slPrice').value = (p + 10.00).toFixed(2);
-            document.getElementById('tpPrice').value = (p - 30.00).toFixed(2);
-          }
-          
           calculate(); 
         }
         updateQuotes();
@@ -315,17 +305,6 @@
       tradeDir = d;
       document.getElementById('btnBuy').style.opacity = d === 'BUY' ? '1' : '0.4';
       document.getElementById('btnSell').style.opacity = d === 'SELL' ? '1' : '0.4';
-      
-      const entry = parseFloat(document.getElementById('entryPrice').value) || 0;
-      if (entry > 0) {
-        if (tradeDir === 'BUY') {
-          document.getElementById('slPrice').value = (entry - 10.00).toFixed(2);
-          document.getElementById('tpPrice').value = (entry + 30.00).toFixed(2);
-        } else {
-          document.getElementById('slPrice').value = (entry + 10.00).toFixed(2);
-          document.getElementById('tpPrice').value = (entry - 30.00).toFixed(2);
-        }
-      }
       calculate();
     }
 
@@ -336,16 +315,22 @@
       const slPrice = parseFloat(document.getElementById('slPrice').value) || 0;
       const tpPrice = parseFloat(document.getElementById('tpPrice').value) || 0;
       const equity = parseFloat(document.getElementById('accEquity')?.value) || 100000;
+      const sym = document.getElementById('instrument').value;
 
       // Price difference calculation
       const slDiff = Math.abs(entry - slPrice);
       const tpDiff = Math.abs(tpPrice - entry);
 
-      // Contract multiplier (100 for XAUUSD/Standard Forex lot scale)
-      const multiplier = 100;
-      
-      // Lot Calculation = SL Risk USD / (SL Price Difference * Multiplier)
-      let calcLot = (slDiff > 0) ? (slAmount / (slDiff * multiplier)) : 0;
+      // Contract Tick Multiplier based on Instrument
+      let contractMultiplier = 100; // XAUUSD default (1 Lot = 100 oz)
+      if (sym === 'USTECH100' || sym === 'NAS100') {
+        contractMultiplier = 1;  // Indices (1 Contract = $1 per point)
+      } else if (sym === 'WTI') {
+        contractMultiplier = 1000; // Oil (1 Lot = 1000 barrels)
+      }
+
+      // Lot Calculation = Risk USD / (SL Diff * Multiplier)
+      let calcLot = (slDiff > 0) ? (slAmount / (slDiff * contractMultiplier)) : 0;
 
       document.getElementById('resRiskUSD').innerText = `$${slAmount.toFixed(2)}`;
       document.getElementById('resRiskPct').innerText = `${((slAmount / equity) * 100).toFixed(2)}%`;
@@ -425,7 +410,6 @@
     renderAccs();
     renderFFCalendar();
     calculate();
-    fetchLivePrice();
   </script>
 </body>
 </html>
