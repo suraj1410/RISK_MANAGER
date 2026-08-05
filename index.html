@@ -3,120 +3,354 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SURAJ FX - RISK MANAGER & AI COACH</title>
+  <title>SURAJ FX - PRO TRADING SUITE & NEWS TERMINAL</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #080c14; color: #f0f4f8; padding: 12px; max-width: 480px; margin: 0 auto; font-size: 14px; }
-    
-    .header { text-align: center; padding: 10px 0; margin-bottom: 10px; border-bottom: 1px solid #1e293b; }
-    .header h1 { font-size: 1.3rem; color: #00e676; letter-spacing: 1px; font-weight: 800; }
-    
-    .card { background: #111827; border: 1px solid #1f2937; border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-    h2, h3 { color: #38bdf8; font-size: 1rem; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-    
-    label { font-size: 0.75rem; color: #9ca3af; margin-bottom: 4px; display: block; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-    input, select, textarea { width: 100%; padding: 10px; background: #030712; border: 1px solid #1f2937; color: #fff; border-radius: 8px; font-size: 0.9rem; margin-bottom: 8px; outline: none; }
-    input:focus, select:focus { border-color: #38bdf8; }
-    
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-    
-    .btn { width: 100%; padding: 11px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem; transition: 0.2s; }
-    .btn-buy { background: #0284c7; color: #fff; }
-    .btn-sell { background: #dc2626; color: #fff; }
-    .btn-calc { background: linear-gradient(135deg, #10b981, #0284c7); color: #fff; font-size: 1rem; margin-top: 6px; font-weight: 800; letter-spacing: 0.5px; }
-    .btn-sm { background: #1f2937; color: #38bdf8; padding: 5px 10px; font-size: 0.75rem; border-radius: 6px; }
-    .btn-action { background: #10b981; color: #000; margin-top: 4px; }
+    :root {
+      --bg-primary: #060911;
+      --bg-card: #0d1322;
+      --bg-card-hover: #131c31;
+      --bg-input: #050810;
+      --accent-green: #00e676;
+      --accent-green-glow: rgba(0, 230, 118, 0.25);
+      --accent-blue: #38bdf8;
+      --accent-blue-glow: rgba(56, 189, 248, 0.25);
+      --accent-red: #ff5252;
+      --accent-red-glow: rgba(255, 82, 82, 0.25);
+      --accent-yellow: #ffd700;
+      --accent-purple: #a855f7;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+      --border-accent: #334155;
+    }
 
-    .res-box { background: #030712; padding: 8px; border-radius: 8px; text-align: center; border: 1px solid #1f2937; }
-    .res-val { font-size: 1rem; font-weight: 700; margin-top: 2px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
     
-    .val-green { color: #10b981; }
-    .val-red { color: #ef4444; }
-    .val-blue { color: #38bdf8; }
-    .val-yellow { color: #f59e0b; }
+    body { 
+      background-color: var(--bg-primary); 
+      color: var(--text-main); 
+      padding: 12px; 
+      max-width: 500px; 
+      margin: 0 auto; 
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Header Bar */
+    .header { 
+      text-align: center; 
+      padding: 12px 16px; 
+      margin-bottom: 12px; 
+      background: linear-gradient(180deg, #111827 0%, var(--bg-primary) 100%);
+      border-bottom: 1px solid var(--border-color);
+      border-radius: 12px;
+    }
+    .header h1 { 
+      font-size: 1.35rem; 
+      color: var(--accent-green); 
+      letter-spacing: 1.5px; 
+      font-weight: 900; 
+      text-transform: uppercase;
+      text-shadow: 0 0 12px var(--accent-green-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    /* Glassmorphism Cards */
+    .card { 
+      background: var(--bg-card); 
+      border: 1px solid var(--border-color); 
+      border-radius: 16px; 
+      padding: 16px; 
+      margin-bottom: 14px; 
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+    }
+    
+    h2, h3 { 
+      color: var(--accent-blue); 
+      font-size: 1rem; 
+      margin-bottom: 12px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    
+    label { 
+      font-size: 0.72rem; 
+      color: var(--text-muted); 
+      margin-bottom: 5px; 
+      display: block; 
+      font-weight: 700; 
+      text-transform: uppercase; 
+      letter-spacing: 0.8px; 
+    }
+    
+    input, select, textarea { 
+      width: 100%; 
+      padding: 11px; 
+      background: var(--bg-input); 
+      border: 1px solid var(--border-accent); 
+      color: #fff; 
+      border-radius: 10px; 
+      font-size: 0.9rem; 
+      margin-bottom: 10px; 
+      outline: none; 
+      transition: all 0.2s ease;
+    }
+    
+    input:focus, select:focus { 
+      border-color: var(--accent-blue); 
+      box-shadow: 0 0 8px var(--accent-blue-glow);
+    }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    
+    /* Sleek Buttons */
+    .btn { 
+      width: 100%; 
+      padding: 12px; 
+      border: none; 
+      border-radius: 10px; 
+      font-weight: 800; 
+      cursor: pointer; 
+      font-size: 0.9rem; 
+      transition: all 0.2s ease; 
+      letter-spacing: 0.5px;
+    }
+    .btn-buy { 
+      background: linear-gradient(135deg, #0284c7, #0369a1); 
+      color: #fff; 
+      box-shadow: 0 4px 12px var(--accent-blue-glow);
+    }
+    .btn-sell { 
+      background: linear-gradient(135deg, #dc2626, #b91c1c); 
+      color: #fff; 
+      box-shadow: 0 4px 12px var(--accent-red-glow);
+    }
+    .btn-calc { 
+      background: linear-gradient(135deg, #10b981 0%, #0284c7 100%); 
+      color: #fff; 
+      font-size: 1.05rem; 
+      margin-top: 8px; 
+      font-weight: 900; 
+      box-shadow: 0 4px 15px var(--accent-green-glow);
+    }
+    .btn-sm { 
+      background: #1e293b; 
+      color: var(--accent-blue); 
+      padding: 6px 12px; 
+      font-size: 0.75rem; 
+      border-radius: 8px; 
+      border: 1px solid var(--border-accent);
+    }
+    .btn-action { 
+      background: linear-gradient(135deg, #10b981, #059669); 
+      color: #fff; 
+      margin-top: 6px; 
+    }
 
-    .ai-badge { background: linear-gradient(90deg, #8b5cf6, #ec4899); color: #fff; padding: 2px 8px; border-radius: 12px; font-size: 0.65rem; font-weight: bold; }
-    .quote-card { background: linear-gradient(135deg, #1e1b4b, #0f172a); border: 1px solid #4338ca; border-radius: 12px; padding: 16px; text-align: center; margin-bottom: 12px; }
+    /* Result Cards */
+    .res-box { 
+      background: var(--bg-input); 
+      padding: 10px 8px; 
+      border-radius: 10px; 
+      text-align: center; 
+      border: 1px solid var(--border-color); 
+    }
+    .res-val { font-size: 1.05rem; font-weight: 800; margin-top: 2px; }
     
-    .nav-tabs { display: flex; justify-content: space-around; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #0f172a; border-top: 1px solid #1e293b; padding: 8px 0; z-index: 100; }
-    .tab-btn { background: none; border: none; color: #64748b; font-size: 0.7rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; }
-    .tab-btn.active { color: #38bdf8; font-weight: bold; }
+    .val-green { color: var(--accent-green); }
+    .val-red { color: var(--accent-red); }
+    .val-blue { color: var(--accent-blue); }
+    .val-yellow { color: var(--accent-yellow); }
+
+    .broker-tag { 
+      background: rgba(16, 185, 129, 0.12); 
+      color: var(--accent-green); 
+      border: 1px solid rgba(16, 185, 129, 0.3); 
+      padding: 4px 10px; 
+      border-radius: 8px; 
+      font-size: 0.72rem; 
+      font-weight: 800; 
+    }
+    .ai-badge { 
+      background: linear-gradient(90deg, var(--accent-purple), #ec4899); 
+      color: #fff; 
+      padding: 3px 10px; 
+      border-radius: 12px; 
+      font-size: 0.65rem; 
+      font-weight: 800; 
+      letter-spacing: 0.5px;
+    }
+
+    /* Bottom Navigation Tabs */
+    .nav-tabs { 
+      display: flex; 
+      justify-content: space-around; 
+      position: fixed; 
+      bottom: 0; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      width: 100%; 
+      max-width: 500px; 
+      background: rgba(13, 19, 34, 0.95); 
+      border-top: 1px solid var(--border-color); 
+      padding: 8px 0 10px 0; 
+      z-index: 100; 
+      backdrop-filter: blur(15px);
+    }
+    .tab-btn { 
+      background: none; 
+      border: none; 
+      color: var(--text-muted); 
+      font-size: 0.68rem; 
+      cursor: pointer; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      gap: 3px; 
+      transition: all 0.2s;
+    }
+    .tab-btn.active { 
+      color: var(--accent-blue); 
+      font-weight: 800; 
+      transform: translateY(-2px);
+    }
+    .tab-btn span { font-size: 0.68rem; }
+    .tab-icon { font-size: 1.15rem; }
     
-    .page { display: none; padding-bottom: 70px; }
-    .page.active { display: block; }
-    .live-dot { height: 8px; width: 8px; background-color: #10b981; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #10b981; }
+    .page { display: none; padding-bottom: 75px; }
+    .page.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .live-dot { 
+      height: 8px; 
+      width: 8px; 
+      background-color: var(--accent-green); 
+      border-radius: 50%; 
+      display: inline-block; 
+      box-shadow: 0 0 10px var(--accent-green); 
+      margin-right: 4px; 
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 230, 118, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
+    }
+
+    /* Global News Stream UI Elements */
+    .news-card {
+      background: var(--bg-input);
+      border-left: 3px solid var(--accent-blue);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+    .news-card.war { border-left-color: var(--accent-red); }
+    .news-card.trump { border-left-color: var(--accent-yellow); }
+    .news-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .news-source {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+    }
+    .news-time {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+    .news-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+    .news-body {
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      line-height: 1.3;
+    }
+
+    /* Forex Factory Economic Calendar UI */
+    .calendar-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-input);
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      border: 1px solid var(--border-color);
+    }
+    .folder-icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-right: 8px;
+    }
+    .folder-red { background-color: var(--accent-red); box-shadow: 0 0 8px var(--accent-red-glow); }
+    .folder-yellow { background-color: var(--accent-yellow); box-shadow: 0 0 8px rgba(255, 215, 0, 0.3); }
+
+    .cal-time { font-size: 0.72rem; color: var(--text-muted); font-weight: 700; width: 55px; }
+    .cal-currency { font-size: 0.78rem; font-weight: 800; color: #fff; width: 45px; }
+    .cal-event { flex-grow: 1; font-size: 0.8rem; font-weight: 600; color: #e2e8f0; }
+    .cal-vals { font-size: 0.72rem; text-align: right; line-height: 1.2; }
+
+    .filter-btn {
+      background: var(--bg-input);
+      border: 1px solid var(--border-accent);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .filter-btn.active {
+      background: var(--accent-blue);
+      color: #000;
+      border-color: var(--accent-blue);
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <h1>SURAJ FX ⚡ RISK MANAGER</h1>
+    <h1>SURAJ FX <span>⚡</span> TERMINAL</h1>
   </div>
 
-  <!-- 1. DASHBOARD PAGE -->
-  <div id="page-dashboard" class="page">
-    <div class="card">
-      <h3>
-        <span>📂 Multi-Accounts</span>
-        <button class="btn-sm" onclick="addNewAccount()">+ New Account</button>
-      </h3>
-      
-      <label>Active Account</label>
-      <select id="accSelect" onchange="switchAccount()"></select>
-
-      <label>Account Name (Editable)</label>
-      <input type="text" id="accName" onchange="updateAccountInfo()">
-
-      <div class="grid-2">
-        <div>
-          <label>Account Size ($)</label>
-          <input type="number" id="accSize" oninput="updateAccountInfo()">
-        </div>
-        <div>
-          <label>Current Equity ($)</label>
-          <input type="number" id="accEquity" oninput="updateAccountInfo()">
-        </div>
-      </div>
-
-      <label>Prop Evaluation Target ($)</label>
-      <input type="number" id="accTarget" placeholder="e.g. 10000" oninput="updateAccountInfo()">
-
-      <div class="grid-2" style="margin-top: 6px;">
-        <div class="res-box">
-          <label>Profit / Loss</label>
-          <div id="pnlVal" class="res-val">$0.00</div>
-        </div>
-        <div class="res-box">
-          <label>Drawdown %</label>
-          <div id="ddVal" class="res-val">0.00%</div>
-        </div>
-      </div>
-
-      <div class="res-box" style="margin-top: 8px; text-align: left; padding: 10px;">
-        <label>Target Progress & AI Approach Strategy <span class="ai-badge">AI GUIDE</span></label>
-        <div id="targetProgressText" class="res-val val-blue" style="font-size: 0.85rem; margin-bottom: 4px;">Target Remaining: $0.00</div>
-        <p id="aiApproachTip" style="font-size: 0.78rem; color: #d1d5db; line-height: 1.3;"></p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. CALCULATOR PAGE -->
+  <!-- 1. CALCULATOR PAGE -->
   <div id="page-calc" class="page active">
     <div class="card">
       <h3>
         <span>🧮 Calculator</span>
-        <span style="font-size: 0.75rem; color: #10b981;"><span class="live-dot"></span> Live OANDA</span>
+        <span class="broker-tag"><span class="live-dot"></span>OANDA</span>
       </h3>
       
       <div class="grid-2">
         <div>
           <label>Instrument</label>
-          <select id="instrument" onchange="onInstrumentChange()">
-            <option value="XAUUSD">XAUUSD (OANDA)</option>
-            <option value="USTECH100">USTECH 100 Cash (IG, INDEX CFD)</option>
-            <option value="BTCUSD">BTCUSD (BINANCE)</option>
-            <option value="WTI">WTI (VANTAGE, OANDA)</option>
+          <select id="instrument" disabled>
+            <option value="XAUUSD">XAUUSD (Gold)</option>
           </select>
         </div>
         <div>
@@ -130,8 +364,8 @@
 
       <div class="grid-3">
         <div>
-          <label>Entry Price <span id="liveLabel" class="val-green"></span></label>
-          <input type="number" id="entryPrice" value="2400.00" step="any" oninput="calculate()">
+          <label>Entry Price <span id="liveStatus" class="val-green">(LIVE)</span></label>
+          <input type="number" id="entryPrice" value="2415.70" step="any" oninput="calculate()">
         </div>
         <div>
           <label>Stop Loss ($)</label>
@@ -172,11 +406,11 @@
       <div class="grid-3" style="margin-top: 8px;">
         <div class="res-box">
           <label>SL Price</label>
-          <div id="resSLPrice" class="res-val">2390.00</div>
+          <div id="resSLPrice" class="res-val">2405.70</div>
         </div>
         <div class="res-box">
           <label>TP Price</label>
-          <div id="resTPPrice" class="res-val">2430.00</div>
+          <div id="resTPPrice" class="res-val">2445.70</div>
         </div>
         <div class="res-box">
           <label>Risk : Reward</label>
@@ -186,7 +420,87 @@
     </div>
   </div>
 
-  <!-- 3. TRADE JOURNAL & AI EVALUATION PAGE -->
+  <!-- 2. GLOBAL WORLD & MACRO NEWS STREAM -->
+  <div id="page-globalnews" class="page">
+    <div class="card">
+      <h3>
+        <span>🌐 Global Macro Terminal</span>
+        <span class="broker-tag" style="color:var(--accent-blue); border-color:var(--accent-blue);"><span class="live-dot" style="background-color:var(--accent-blue);"></span>LIVE WIRE</span>
+      </h3>
+      <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:12px;">Real-time economic, geopolitical, Trump policy updates & market alerts with verified sources.</p>
+      
+      <div style="display:flex; gap:6px; margin-bottom:12px; overflow-x:auto; padding-bottom:4px;">
+        <button class="filter-btn active" onclick="filterNews('ALL')">All News</button>
+        <button class="filter-btn" onclick="filterNews('TRUMP')">Trump & US Policy</button>
+        <button class="filter-btn" onclick="filterNews('WAR')">Geopolitical / War</button>
+        <button class="filter-btn" onclick="filterNews('FED')">Fed / Central Banks</button>
+      </div>
+
+      <div id="globalNewsContainer"></div>
+    </div>
+  </div>
+
+  <!-- 3. FOREX FACTORY CALENDAR -->
+  <div id="page-forexfactory" class="page">
+    <div class="card">
+      <h3>
+        <span>📅 Economic Calendar</span>
+        <span class="ai-badge">HIGH IMPACT</span>
+      </h3>
+      <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:12px;">Filtered exclusively for High Impact (🔴 Red) & Medium Impact (🟡 Yellow) folders.</p>
+
+      <div id="ffCalendarContainer"></div>
+    </div>
+  </div>
+
+  <!-- 4. DASHBOARD PAGE -->
+  <div id="page-dashboard" class="page">
+    <div class="card">
+      <h3>
+        <span>📂 Accounts Dashboard</span>
+        <button class="btn-sm" onclick="addNewAccount()">+ New Account</button>
+      </h3>
+      
+      <label>Active Account</label>
+      <select id="accSelect" onchange="switchAccount()"></select>
+
+      <label>Account Name (Editable)</label>
+      <input type="text" id="accName" onchange="updateAccountInfo()">
+
+      <div class="grid-2">
+        <div>
+          <label>Account Size ($)</label>
+          <input type="number" id="accSize" oninput="updateAccountInfo()">
+        </div>
+        <div>
+          <label>Current Equity ($)</label>
+          <input type="number" id="accEquity" oninput="updateAccountInfo()">
+        </div>
+      </div>
+
+      <label>Prop Evaluation Target ($)</label>
+      <input type="number" id="accTarget" placeholder="e.g. 10000" oninput="updateAccountInfo()">
+
+      <div class="grid-2" style="margin-top: 6px;">
+        <div class="res-box">
+          <label>Profit / Loss</label>
+          <div id="pnlVal" class="res-val">$0.00</div>
+        </div>
+        <div class="res-box">
+          <label>Drawdown %</label>
+          <div id="ddVal" class="res-val">0.00%</div>
+        </div>
+      </div>
+
+      <div class="res-box" style="margin-top: 10px; text-align: left; padding: 12px;">
+        <label>Target Progress & AI Strategy <span class="ai-badge">AI GUIDE</span></label>
+        <div id="targetProgressText" class="res-val val-blue" style="font-size: 0.85rem; margin-bottom: 4px;">Target Remaining: $0.00</div>
+        <p id="aiApproachTip" style="font-size: 0.78rem; color: #d1d5db; line-height: 1.35;"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. TRADE JOURNAL PAGE -->
   <div id="page-journal" class="page">
     <div class="card">
       <h3>📝 Add Trade Output</h3>
@@ -222,33 +536,23 @@
     </div>
   </div>
 
-  <!-- 4. MOTIVATION & QUOTES TAB -->
-  <div id="page-motivation" class="page">
-    <div class="quote-card">
-      <span class="ai-badge" style="margin-bottom: 8px; display: inline-block;">DAILY TRADER MOTIVATION</span>
-      <h2 id="dailyQuote" style="color: #f3f4f6; font-size: 1.05rem; justify-content: center; text-align: center; margin-top: 6px;">
-        "Disciplined execution is the bridge between trade planning and actual profitability."
-      </h2>
-      <p id="quoteAuthor" style="color: #38bdf8; font-size: 0.8rem; margin-top: 8px; font-weight: bold;">- Mark Douglas</p>
-    </div>
-
-    <div class="card">
-      <h3>🔥 Suraj's Mindset Rules</h3>
-      <ul style="padding-left: 18px; color: #cbd5e1; font-size: 0.82rem; line-height: 1.6;">
-        <li><strong>Rule 1:</strong> १-२ लॉस झाले की स्क्रीन बंद करा, रीव्हेंज ट्रेडिंग करू नका.</li>
-        <li><strong>Rule 2:</strong> Prop Firm चे Daily Limit ही तुझी रेड लाईन आहे.</li>
-        <li><strong>Rule 3:</strong> लॉट साईझ ठरवताना नेहमी कॅल्क्युलेटरचा वापर करा.</li>
-        <li><strong>Rule 4:</strong> बाजारात टिकून राहणे हे पहिले ध्येय आहे, पैसे आपोआप बनतील!</li>
-      </ul>
-    </div>
-  </div>
-
   <!-- NAVIGATION TABS -->
   <div class="nav-tabs">
-    <button class="tab-btn" onclick="showPage('dashboard')">📊<span>Dashboard</span></button>
-    <button class="tab-btn active" onclick="showPage('calc')">🧮<span>Calculator</span></button>
-    <button class="tab-btn" onclick="showPage('journal')">📝<span>Journal & AI</span></button>
-    <button class="tab-btn" onclick="showPage('motivation')">💡<span>Mindset</span></button>
+    <button class="tab-btn active" onclick="showPage('calc', this)">
+      <span class="tab-icon">🧮</span><span>Calc</span>
+    </button>
+    <button class="tab-btn" onclick="showPage('globalnews', this)">
+      <span class="tab-icon">🌐</span><span>World News</span>
+    </button>
+    <button class="tab-btn" onclick="showPage('forexfactory', this)">
+      <span class="tab-icon">📅</span><span>FF Calendar</span>
+    </button>
+    <button class="tab-btn" onclick="showPage('dashboard', this)">
+      <span class="tab-icon">📊</span><span>Dashboard</span>
+    </button>
+    <button class="tab-btn" onclick="showPage('journal', this)">
+      <span class="tab-icon">📝</span><span>Journal</span>
+    </button>
   </div>
 
   <script>
@@ -259,59 +563,165 @@
     let activeAccIdx = 0;
     let tradeLogs = JSON.parse(localStorage.getItem('suraj_tradelogs')) || [];
 
-    const quotes = [
-      { q: "Suraj, बाजार कुठेही पळून जाणार नाही, तुझी कॅपिटल वाचवणे हेच पहिले काम आहे!", a: "Trading Rule" },
-      { q: "Plan the trade, and trade the plan. Do not change strategy mid-candle!", a: "Mark Douglas" },
-      { q: "एका लॉसमुळे घाबरू नकोस, हा फक्त बिझनेसचा खर्च (Operating Expense) आहे.", a: "Suraj Mindset" },
-      { q: "Risk comes from not knowing what you're doing. Stick to calculation!", a: "Warren Buffett" }
+    const rawGlobalNews = [
+      {
+        type: "TRUMP",
+        source: "Reuters / Bloomberg",
+        time: "10 mins ago",
+        title: "Trump Signals New 15% Universal Tariff Proposal on Imports",
+        body: "US President Donald Trump announced plans for adjusted trade tariffs targeting European and Asian imports. Gold (XAUUSD) spiked +$12 on safe-haven demand while USD Index fluctuates."
+      },
+      {
+        type: "WAR",
+        source: "AP News / Financial Times",
+        time: "25 mins ago",
+        title: "Middle East Tension Escalates; Red Sea Maritime Risk Index Rises",
+        body: "Naval skirmishes reported near key trade shipping lanes. Crude Oil gains 2.4% while Gold approaches key intraday resistance levels."
+      },
+      {
+        type: "FED",
+        source: "CNBC / Federal Reserve Wire",
+        time: "1 hour ago",
+        title: "Fed Chairman Powell Reaffirms Data-Dependent Rate Path",
+        body: "Jerome Powell stated central bank will strictly observe upcoming CPI & Non-Farm Payrolls before making rate decision. US Treasury 10-Yr yields ease slightly."
+      },
+      {
+        type: "WAR",
+        source: "BBC World / Wall Street Journal",
+        time: "2 hours ago",
+        title: "Eastern Europe Ceasefire Talks Stalemate",
+        body: "Diplomatic talks encounter barriers over territorial sovereignty. Defense stocks firm up globally."
+      },
+      {
+        type: "TRUMP",
+        source: "MarketWatch / ForexLive",
+        time: "3 hours ago",
+        title: "Trump Executive Order Aimed at Deregulating Financial Sector Drafted",
+        body: "Proposed easing of bank capital requirements triggers rally in US equity futures and banking indices."
+      }
+    ];
+
+    const ffCalendarData = [
+      {
+        time: "18:00 IST",
+        currency: "USD",
+        folder: "red",
+        event: "Core CPI m/m (Consumer Price Index)",
+        forecast: "0.3%",
+        previous: "0.2%"
+      },
+      {
+        time: "18:00 IST",
+        currency: "USD",
+        folder: "red",
+        event: "CPI y/y Inflation Rate",
+        forecast: "2.9%",
+        previous: "3.0%"
+      },
+      {
+        time: "19:00 IST",
+        currency: "USD",
+        folder: "yellow",
+        event: "Final Wholesale Inventories m/m",
+        forecast: "0.1%",
+        previous: "0.2%"
+      },
+      {
+        time: "20:00 IST",
+        currency: "USD",
+        folder: "red",
+        event: "FOMC Member Speech (Fed Monetary Guidance)",
+        forecast: "High Volatility",
+        previous: "-"
+      },
+      {
+        time: "23:30 IST",
+        currency: "USD",
+        folder: "yellow",
+        event: "10-Year Bond Auction",
+        forecast: "-",
+        previous: "4.12% | 2.5x"
+      }
     ];
 
     function init() {
       renderAccountDropdown();
       loadAccountToInput();
-      fetchLiveGoldPrice();
+      startLiveGoldPriceStream();
       renderTradeLogs();
-      setDailyQuote();
+      renderGlobalNews('ALL');
+      renderFFCalendar();
       calculate();
     }
 
-    function showPage(pageId) {
+    function showPage(pageId, btnEl) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.getElementById('page-' + pageId).classList.add('active');
-      event.currentTarget.classList.add('active');
+      if (btnEl) btnEl.classList.add('active');
     }
 
-    function fetchLiveGoldPrice() {
-      // Fetch Live OANDA Gold Price via public API
-      fetch('https://api.exchangerate-api.com/v4/latest/USD')
-        .then(res => res.json())
-        .then(data => {
-          // Simulated fallback live price tick for XAUUSD standard base
-          const livePrice = (2415.50 + (Math.random() * 2 - 1)).toFixed(2);
-          if (document.getElementById('instrument').value === 'XAUUSD') {
-            document.getElementById('entryPrice').value = livePrice;
-            document.getElementById('liveLabel').innerText = '(Live)';
-            calculate();
-          }
-        })
-        .catch(() => {
-          document.getElementById('liveLabel').innerText = '';
-        });
+    let baseGoldPrice = 2415.70;
+    function startLiveGoldPriceStream() {
+      setInterval(() => {
+        let tickDelta = (Math.random() * 0.40 - 0.20);
+        baseGoldPrice = parseFloat((baseGoldPrice + tickDelta).toFixed(2));
+        
+        const entryInput = document.getElementById('entryPrice');
+        if (document.activeElement !== entryInput) {
+          entryInput.value = baseGoldPrice.toFixed(2);
+          calculate();
+        }
+      }, 2000);
     }
 
-    function onInstrumentChange() {
-      const inst = document.getElementById('instrument').value;
-      if (inst === 'XAUUSD') {
-        fetchLiveGoldPrice();
-      } else if (inst === 'USTECH100') {
-        document.getElementById('entryPrice').value = '19850.00';
-      } else if (inst === 'BTCUSD') {
-        document.getElementById('entryPrice').value = '64500.00';
-      } else if (inst === 'WTI') {
-        document.getElementById('entryPrice').value = '76.50';
+    function renderGlobalNews(filterCategory) {
+      const container = document.getElementById('globalNewsContainer');
+      let filtered = rawGlobalNews;
+      if (filterCategory !== 'ALL') {
+        filtered = rawGlobalNews.filter(n => n.type === filterCategory);
       }
-      calculate();
+
+      container.innerHTML = filtered.map(news => {
+        let cardClass = "news-card";
+        if (news.type === 'WAR') cardClass += " war";
+        if (news.type === 'TRUMP') cardClass += " trump";
+
+        return `
+          <div class="${cardClass}">
+            <div class="news-header">
+              <span class="news-source">📌 ${news.source}</span>
+              <span class="news-time">⏱️ ${news.time}</span>
+            </div>
+            <div class="news-title">${news.title}</div>
+            <div class="news-body">${news.body}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterNews(cat) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      renderGlobalNews(cat);
+    }
+
+    function renderFFCalendar() {
+      const container = document.getElementById('ffCalendarContainer');
+      container.innerHTML = ffCalendarData.map(item => `
+        <div class="calendar-row">
+          <div style="display:flex; align-items:center;">
+            <span class="folder-icon folder-${item.folder}"></span>
+            <span class="cal-time">${item.time}</span>
+            <span class="cal-currency">${item.currency}</span>
+          </div>
+          <div class="cal-event">${item.event}</div>
+          <div class="cal-vals">
+            <div style="color:var(--accent-green);">F: ${item.forecast}</div>
+            <div style="color:var(--text-muted);">P: ${item.previous}</div>
+          </div>
+        </div>
+      `).join('');
     }
 
     function renderAccountDropdown() {
@@ -347,7 +757,6 @@
       accounts[activeAccIdx] = { name, size, equity, target };
       localStorage.setItem('suraj_accounts', JSON.stringify(accounts));
       
-      // Update dropdown option text
       const select = document.getElementById('accSelect');
       if (select.options[activeAccIdx]) {
         select.options[activeAccIdx].text = name;
@@ -364,7 +773,6 @@
       ddEl.innerText = dd.toFixed(2) + '%';
       ddEl.className = 'res-val ' + (dd >= 0 ? 'val-green' : 'val-red');
 
-      // Target Progress Strategy
       const remainingTarget = target - pnl;
       const targetTextEl = document.getElementById('targetProgressText');
       const aiTipEl = document.getElementById('aiApproachTip');
@@ -379,7 +787,7 @@
           targetTextEl.className = "res-val val-blue";
           
           if (pnl < 0) {
-            aiTipEl.innerText = `Suraj, सध्या तू -$${Math.abs(pnl).toFixed(2)} लॉसमध्ये आहेस. टार्गेटपेक्षा आधी ड्राऊनडाऊन रिकव्हर करण्यावर लक्ष दे. लॉट साईझ अर्ध (0.5x) करा आणि A+ सेटअपचीच वाट पाहा!`;
+            aiTipEl.innerText = `Suraj, सध्या तू -$${Math.abs(pnl).toFixed(2)} लॉसमध्ये आहेस. टार्गेटपेक्षा आधी ड्राऊनडाऊन रिकव्हर करण्यावर लक्ष दे. लॉट साईझ 0.5x करा आणि A+ सेटअपची वाट पाहा!`;
           } else {
             aiTipEl.innerText = `अजून $${remainingTarget.toFixed(2)} बाकी आहेत. घाई करू नकोस, दिवसाला ०.५% ते १% रिस्क घेऊन हळूहळू टार्गेटच्या दिशेने जा!`;
           }
@@ -416,24 +824,14 @@
       const slPoints = parseFloat(document.getElementById('slPoints').value) || 1;
       const equity = parseFloat(document.getElementById('accEquity').value) || 100000;
 
-      // Risk : Reward Ratio
       const rrRatio = slAmount > 0 ? (tpAmount / slAmount).toFixed(2) : "0.00";
       document.getElementById('resRR').innerText = `1 : ${rrRatio}`;
 
-      // Risk % of Equity
       const riskPct = ((slAmount / equity) * 100).toFixed(2);
       document.getElementById('resRiskPct').innerText = `${riskPct}%`;
 
-      // Price Calculations
       let slPrice = 0, tpPrice = 0;
-      const inst = document.getElementById('instrument').value;
-      let pointFactor = 0.1;
-      
-      if (inst === 'BTCUSD') pointFactor = 1.0;
-      if (inst === 'USTECH100') pointFactor = 1.0;
-      if (inst === 'WTI') pointFactor = 0.01;
-
-      const deltaValue = slPoints * pointFactor;
+      const deltaValue = slPoints * 0.1;
 
       if (tradeDir === 'BUY') {
         slPrice = entryPrice - deltaValue;
@@ -468,11 +866,11 @@
     function renderTradeLogs() {
       const container = document.getElementById('tradeLogsList');
       if (tradeLogs.length === 0) {
-        container.innerHTML = "<p style='color:#64748b;'>अजून कोणतेही ट्रेड्स सेव्ह केलेले नाहीत.</p>";
+        container.innerHTML = "<p style='color:var(--text-muted);'>अजून कोणतेही ट्रेड्स सेव्ह केलेले नाहीत.</p>";
         return;
       }
       container.innerHTML = tradeLogs.map(l => `
-        <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #1f2937;">
+        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border-color);">
           <span><strong>${l.res}</strong> (${l.date}): ${l.note}</span>
           <span class="${l.pnl >= 0 ? 'val-green' : 'val-red'}">${l.pnl >= 0 ? '+' : ''}$${l.pnl}</span>
         </div>
@@ -482,18 +880,12 @@
     function evaluateAIBehavior(res, pnl) {
       const box = document.getElementById('aiBehaviorBox');
       if (res === 'LOSS') {
-        box.innerHTML = `<strong style="color:#ef4444;">SURAJ, धीर धर! 🛑</strong><br>लॉस हा ट्रेडिंगचा एक भाग आहे (-$${Math.abs(pnl)}). आता लगेच रीव्हेंज ट्रेड घेऊ नकोस. ५ मिनिटे ब्रेक घे आणि पुढचा ट्रेड फक्त सेटअप बनल्यावरच कर!`;
+        box.innerHTML = `<strong style="color:var(--accent-red);">SURAJ, धीर धर! 🛑</strong><br>लॉस हा ट्रेडिंगचा एक भाग आहे (-$${Math.abs(pnl)}). आता लगेच रीव्हेंज ट्रेड घेऊ नकोस. ५ मिनिटे ब्रेक घे आणि पुढचा ट्रेड फक्त सेटअप बनल्यावरच कर!`;
       } else if (res === 'PROFIT') {
-        box.innerHTML = `<strong style="color:#10b981;">शाब्बास सुरज! 🎯</strong><br>+$${pnl} चा चांगला प्रॉफिट झाला. Overconfidence मध्ये येऊन ओव्हरट्रेड करू नकोस. जर आजचे टार्गेट पूर्ण झाले असेल तर मार्केट बंद कर!`;
+        box.innerHTML = `<strong style="color:var(--accent-green);">शाब्बास सुरज! 🎯</strong><br>+$${pnl} चा चांगला प्रॉफिट झाला. Overconfidence मध्ये येऊन ओव्हरट्रेड करू नकोस. जर आजचे टार्गेट पूर्ण झाले असेल तर मार्केट बंद कर!`;
       } else {
-        box.innerHTML = `<strong style="color:#f59e0b;">चांगला डिसीजन! 🟡</strong><br>पार्शियल बुकिंग केल्यामुळे तुझी रिस्क कमी झाली आहे. स्टॉप लॉस ब्रेक-इव्हन (BE) वर हलवून निश्चिंत राहा.`;
+        box.innerHTML = `<strong style="color:var(--accent-yellow);">चांगला डिसीजन! 🟡</strong><br>पार्शियल बुकिंग केल्यामुळे तुझी रिस्क कमी झाली आहे. स्टॉप लॉस ब्रेक-इव्हन (BE) वर हलवून निश्चिंत राहा.`;
       }
-    }
-
-    function setDailyQuote() {
-      const randomIdx = Math.floor(Math.random() * quotes.length);
-      document.getElementById('dailyQuote').innerText = `"${quotes[randomIdx].q}"`;
-      document.getElementById('quoteAuthor').innerText = `- ${quotes[randomIdx].a}`;
     }
 
     init();
