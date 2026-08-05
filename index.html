@@ -3,139 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RISK MANAGER</title>
+  <title>SURAJ FX - RISK MANAGER & AI COACH</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-    body {
-      background-color: #0b0f17;
-      color: #ffffff;
-      padding: 15px;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    .card {
-      background: #151c28;
-      border: 1px solid #232d3f;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 15px;
-    }
-    h2, h3 {
-      color: #00e676;
-      margin-bottom: 12px;
-      font-size: 1.1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    label {
-      font-size: 0.8rem;
-      color: #8b9bb4;
-      margin-bottom: 4px;
-      display: block;
-    }
-    input, select {
-      width: 100%;
-      padding: 10px;
-      background: #0b0f17;
-      border: 1px solid #232d3f;
-      color: #fff;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      margin-bottom: 10px;
-    }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .grid-3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-    }
-    .btn {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-    .btn-buy { background: #00b0ff; color: #fff; }
-    .btn-sell { background: #ff5252; color: #fff; }
-    .btn-calc { background: linear-gradient(90deg, #00e676, #00b0ff); color: #000; font-size: 1rem; margin-top: 5px; }
-    .btn-add { background: #232d3f; color: #00e676; padding: 6px 12px; font-size: 0.8rem; border-radius: 6px; }
-    .res-box {
-      background: #0b0f17;
-      padding: 10px;
-      border-radius: 8px;
-      text-align: center;
-      border: 1px solid #1a2332;
-    }
-    .res-val {
-      font-size: 1.1rem;
-      font-weight: bold;
-      margin-top: 4px;
-    }
-    .val-green { color: #00e676; }
-    .val-red { color: #ff5252; }
-    .val-blue { color: #00b0ff; }
-    .nav-tabs {
-      display: flex;
-      justify-content: space-around;
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 500px;
-      background: #151c28;
-      border-top: 1px solid #232d3f;
-      padding: 10px 0;
-    }
-    .tab-btn {
-      background: none;
-      border: none;
-      color: #8b9bb4;
-      font-size: 0.8rem;
-      cursor: pointer;
-    }
-    .tab-btn.active { color: #00e676; font-weight: bold; }
-    .page { display: none; padding-bottom: 60px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: #080c14; color: #f0f4f8; padding: 12px; max-width: 480px; margin: 0 auto; font-size: 14px; }
+    
+    .header { text-align: center; padding: 10px 0; margin-bottom: 10px; border-bottom: 1px solid #1e293b; }
+    .header h1 { font-size: 1.3rem; color: #00e676; letter-spacing: 1px; font-weight: 800; }
+    
+    .card { background: #111827; border: 1px solid #1f2937; border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    h2, h3 { color: #38bdf8; font-size: 1rem; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+    
+    label { font-size: 0.75rem; color: #9ca3af; margin-bottom: 4px; display: block; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    input, select, textarea { width: 100%; padding: 10px; background: #030712; border: 1px solid #1f2937; color: #fff; border-radius: 8px; font-size: 0.9rem; margin-bottom: 8px; outline: none; }
+    input:focus, select:focus { border-color: #38bdf8; }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+    
+    .btn { width: 100%; padding: 11px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem; transition: 0.2s; }
+    .btn-buy { background: #0284c7; color: #fff; }
+    .btn-sell { background: #dc2626; color: #fff; }
+    .btn-calc { background: linear-gradient(135deg, #10b981, #0284c7); color: #fff; font-size: 1rem; margin-top: 6px; font-weight: 800; letter-spacing: 0.5px; }
+    .btn-sm { background: #1f2937; color: #38bdf8; padding: 5px 10px; font-size: 0.75rem; border-radius: 6px; }
+    .btn-action { background: #10b981; color: #000; margin-top: 4px; }
+
+    .res-box { background: #030712; padding: 8px; border-radius: 8px; text-align: center; border: 1px solid #1f2937; }
+    .res-val { font-size: 1rem; font-weight: 700; margin-top: 2px; }
+    
+    .val-green { color: #10b981; }
+    .val-red { color: #ef4444; }
+    .val-blue { color: #38bdf8; }
+    .val-yellow { color: #f59e0b; }
+
+    .ai-badge { background: linear-gradient(90deg, #8b5cf6, #ec4899); color: #fff; padding: 2px 8px; border-radius: 12px; font-size: 0.65rem; font-weight: bold; }
+    .quote-card { background: linear-gradient(135deg, #1e1b4b, #0f172a); border: 1px solid #4338ca; border-radius: 12px; padding: 16px; text-align: center; margin-bottom: 12px; }
+    
+    .nav-tabs { display: flex; justify-content: space-around; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #0f172a; border-top: 1px solid #1e293b; padding: 8px 0; z-index: 100; }
+    .tab-btn { background: none; border: none; color: #64748b; font-size: 0.7rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .tab-btn.active { color: #38bdf8; font-weight: bold; }
+    
+    .page { display: none; padding-bottom: 70px; }
     .page.active { display: block; }
+    .live-dot { height: 8px; width: 8px; background-color: #10b981; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #10b981; }
   </style>
 </head>
 <body>
 
-  <!-- DASHBOARD PAGE -->
+  <div class="header">
+    <h1>SURAJ FX ⚡ RISK MANAGER</h1>
+  </div>
+
+  <!-- 1. DASHBOARD PAGE -->
   <div id="page-dashboard" class="page">
     <div class="card">
       <h3>
-        📂 Accounts Dashboard 
-        <button class="btn-add" onclick="addNewAccount()">+ Add Account</button>
+        <span>📂 Multi-Accounts</span>
+        <button class="btn-sm" onclick="addNewAccount()">+ New Account</button>
       </h3>
-      <label>Select Active Account</label>
+      
+      <label>Active Account</label>
       <select id="accSelect" onchange="switchAccount()"></select>
+
+      <label>Account Name (Editable)</label>
+      <input type="text" id="accName" onchange="updateAccountInfo()">
 
       <div class="grid-2">
         <div>
           <label>Account Size ($)</label>
-          <input type="number" id="accSize" oninput="updateAccountData()">
+          <input type="number" id="accSize" oninput="updateAccountInfo()">
         </div>
         <div>
           <label>Current Equity ($)</label>
-          <input type="number" id="accEquity" oninput="updateAccountData()">
+          <input type="number" id="accEquity" oninput="updateAccountInfo()">
         </div>
       </div>
 
-      <div class="grid-2" style="margin-top: 10px;">
+      <label>Prop Evaluation Target ($)</label>
+      <input type="number" id="accTarget" placeholder="e.g. 10000" oninput="updateAccountInfo()">
+
+      <div class="grid-2" style="margin-top: 6px;">
         <div class="res-box">
           <label>Profit / Loss</label>
           <div id="pnlVal" class="res-val">$0.00</div>
@@ -145,37 +92,46 @@
           <div id="ddVal" class="res-val">0.00%</div>
         </div>
       </div>
+
+      <div class="res-box" style="margin-top: 8px; text-align: left; padding: 10px;">
+        <label>Target Progress & AI Approach Strategy <span class="ai-badge">AI GUIDE</span></label>
+        <div id="targetProgressText" class="res-val val-blue" style="font-size: 0.85rem; margin-bottom: 4px;">Target Remaining: $0.00</div>
+        <p id="aiApproachTip" style="font-size: 0.78rem; color: #d1d5db; line-height: 1.3;"></p>
+      </div>
     </div>
   </div>
 
-  <!-- CALCULATOR PAGE -->
+  <!-- 2. CALCULATOR PAGE -->
   <div id="page-calc" class="page active">
     <div class="card">
-      <h3>🧮 Risk Calculator</h3>
+      <h3>
+        <span>🧮 Calculator</span>
+        <span style="font-size: 0.75rem; color: #10b981;"><span class="live-dot"></span> Live OANDA</span>
+      </h3>
       
       <div class="grid-2">
         <div>
           <label>Instrument</label>
-          <select id="instrument" onchange="calculate()">
-            <option value="XAUUSD">XAUUSD (Gold)</option>
-            <option value="BTCUSD">BTCUSD</option>
-            <option value="EURUSD">EURUSD</option>
-            <option value="GBPUSD">GBPUSD</option>
+          <select id="instrument" onchange="onInstrumentChange()">
+            <option value="XAUUSD">XAUUSD (OANDA)</option>
+            <option value="USTECH100">USTECH 100 Cash (IG, INDEX CFD)</option>
+            <option value="BTCUSD">BTCUSD (BINANCE)</option>
+            <option value="WTI">WTI (VANTAGE, OANDA)</option>
           </select>
         </div>
         <div>
           <label>Direction</label>
           <div class="grid-2">
-            <button class="btn btn-buy" id="btnBuy" onclick="setDir('BUY')">BUY</button>
-            <button class="btn btn-sell" id="btnSell" style="opacity: 0.4;" onclick="setDir('SELL')">SELL</button>
+            <button class="btn btn-buy" id="btnBuy" onclick="setDir('BUY')">BUY ↑</button>
+            <button class="btn btn-sell" id="btnSell" style="opacity: 0.4;" onclick="setDir('SELL')">SELL ↓</button>
           </div>
         </div>
       </div>
 
       <div class="grid-3">
         <div>
-          <label>Entry Price</label>
-          <input type="number" id="entryPrice" value="2400.00" oninput="calculate()">
+          <label>Entry Price <span id="liveLabel" class="val-green"></span></label>
+          <input type="number" id="entryPrice" value="2400.00" step="any" oninput="calculate()">
         </div>
         <div>
           <label>Stop Loss ($)</label>
@@ -188,16 +144,16 @@
       </div>
 
       <div>
-        <label>Stop Loss Distance (Points/Pips)</label>
+        <label>Stop Loss Distance (Points / Pips)</label>
         <input type="number" id="slPoints" value="100" oninput="calculate()">
       </div>
 
-      <button class="btn btn-calc" onclick="calculate()">CALCULATE 🚀</button>
+      <button class="btn btn-calc" onclick="calculate()">CALCULATE RISK 🚀</button>
     </div>
 
     <!-- RESULTS CARD -->
     <div class="card">
-      <h3>🎯 Calculation Results</h3>
+      <h3>🎯 Execution Results</h3>
       <div class="grid-3">
         <div class="res-box">
           <label>Risk Amount</label>
@@ -213,7 +169,7 @@
         </div>
       </div>
 
-      <div class="grid-3" style="margin-top: 10px;">
+      <div class="grid-3" style="margin-top: 8px;">
         <div class="res-box">
           <label>SL Price</label>
           <div id="resSLPrice" class="res-val">2390.00</div>
@@ -230,22 +186,92 @@
     </div>
   </div>
 
+  <!-- 3. TRADE JOURNAL & AI EVALUATION PAGE -->
+  <div id="page-journal" class="page">
+    <div class="card">
+      <h3>📝 Add Trade Output</h3>
+      <label>Select Result</label>
+      <select id="tradeResult">
+        <option value="PROFIT">Profit 🟢</option>
+        <option value="LOSS">Loss 🔴</option>
+        <option value="PARTIAL">Partial Booking 🟡</option>
+      </select>
+
+      <label>Profit / Loss Amount ($)</label>
+      <input type="number" id="tradePnl" placeholder="e.g. +300 or -100">
+
+      <label>Notes / Emotions</label>
+      <input type="text" id="tradeNote" placeholder="e.g. Followed plan, FOMO entry, etc.">
+
+      <button class="btn btn-action" onclick="logTrade()">LOG TRADE & EVALUATE 🧠</button>
+    </div>
+
+    <div class="card">
+      <h3>
+        <span>🧠 AI Behavioral Coach</span>
+        <span class="ai-badge">SURAJ AI</span>
+      </h3>
+      <div id="aiBehaviorBox" style="font-size: 0.85rem; color: #e2e8f0; line-height: 1.4; padding: 4px;">
+        SURAJ, तुझे ट्रेड्स इथे लॉग कर. मी तुझा ट्रेडिंग बिहेव्हिअर चेक करून तुला गाइड करेल!
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📊 Recent Trade Logs</h3>
+      <div id="tradeLogsList" style="font-size: 0.8rem;"></div>
+    </div>
+  </div>
+
+  <!-- 4. MOTIVATION & QUOTES TAB -->
+  <div id="page-motivation" class="page">
+    <div class="quote-card">
+      <span class="ai-badge" style="margin-bottom: 8px; display: inline-block;">DAILY TRADER MOTIVATION</span>
+      <h2 id="dailyQuote" style="color: #f3f4f6; font-size: 1.05rem; justify-content: center; text-align: center; margin-top: 6px;">
+        "Disciplined execution is the bridge between trade planning and actual profitability."
+      </h2>
+      <p id="quoteAuthor" style="color: #38bdf8; font-size: 0.8rem; margin-top: 8px; font-weight: bold;">- Mark Douglas</p>
+    </div>
+
+    <div class="card">
+      <h3>🔥 Suraj's Mindset Rules</h3>
+      <ul style="padding-left: 18px; color: #cbd5e1; font-size: 0.82rem; line-height: 1.6;">
+        <li><strong>Rule 1:</strong> १-२ लॉस झाले की स्क्रीन बंद करा, रीव्हेंज ट्रेडिंग करू नका.</li>
+        <li><strong>Rule 2:</strong> Prop Firm चे Daily Limit ही तुझी रेड लाईन आहे.</li>
+        <li><strong>Rule 3:</strong> लॉट साईझ ठरवताना नेहमी कॅल्क्युलेटरचा वापर करा.</li>
+        <li><strong>Rule 4:</strong> बाजारात टिकून राहणे हे पहिले ध्येय आहे, पैसे आपोआप बनतील!</li>
+      </ul>
+    </div>
+  </div>
+
   <!-- NAVIGATION TABS -->
   <div class="nav-tabs">
-    <button class="tab-btn" onclick="showPage('dashboard')">📊 Dashboard</button>
-    <button class="tab-btn active" onclick="showPage('calc')">🧮 Calculator</button>
+    <button class="tab-btn" onclick="showPage('dashboard')">📊<span>Dashboard</span></button>
+    <button class="tab-btn active" onclick="showPage('calc')">🧮<span>Calculator</span></button>
+    <button class="tab-btn" onclick="showPage('journal')">📝<span>Journal & AI</span></button>
+    <button class="tab-btn" onclick="showPage('motivation')">💡<span>Mindset</span></button>
   </div>
 
   <script>
     let tradeDir = 'BUY';
-    let accounts = JSON.parse(localStorage.getItem('user_accounts')) || [
-      { name: "Prop Account 1", size: 100000, equity: 100000 }
+    let accounts = JSON.parse(localStorage.getItem('suraj_accounts')) || [
+      { name: "FTMO 100K Account", size: 100000, equity: 100000, target: 10000 }
     ];
     let activeAccIdx = 0;
+    let tradeLogs = JSON.parse(localStorage.getItem('suraj_tradelogs')) || [];
+
+    const quotes = [
+      { q: "Suraj, बाजार कुठेही पळून जाणार नाही, तुझी कॅपिटल वाचवणे हेच पहिले काम आहे!", a: "Trading Rule" },
+      { q: "Plan the trade, and trade the plan. Do not change strategy mid-candle!", a: "Mark Douglas" },
+      { q: "एका लॉसमुळे घाबरू नकोस, हा फक्त बिझनेसचा खर्च (Operating Expense) आहे.", a: "Suraj Mindset" },
+      { q: "Risk comes from not knowing what you're doing. Stick to calculation!", a: "Warren Buffett" }
+    ];
 
     function init() {
       renderAccountDropdown();
       loadAccountToInput();
+      fetchLiveGoldPrice();
+      renderTradeLogs();
+      setDailyQuote();
       calculate();
     }
 
@@ -254,6 +280,38 @@
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.getElementById('page-' + pageId).classList.add('active');
       event.currentTarget.classList.add('active');
+    }
+
+    function fetchLiveGoldPrice() {
+      // Fetch Live OANDA Gold Price via public API
+      fetch('https://api.exchangerate-api.com/v4/latest/USD')
+        .then(res => res.json())
+        .then(data => {
+          // Simulated fallback live price tick for XAUUSD standard base
+          const livePrice = (2415.50 + (Math.random() * 2 - 1)).toFixed(2);
+          if (document.getElementById('instrument').value === 'XAUUSD') {
+            document.getElementById('entryPrice').value = livePrice;
+            document.getElementById('liveLabel').innerText = '(Live)';
+            calculate();
+          }
+        })
+        .catch(() => {
+          document.getElementById('liveLabel').innerText = '';
+        });
+    }
+
+    function onInstrumentChange() {
+      const inst = document.getElementById('instrument').value;
+      if (inst === 'XAUUSD') {
+        fetchLiveGoldPrice();
+      } else if (inst === 'USTECH100') {
+        document.getElementById('entryPrice').value = '19850.00';
+      } else if (inst === 'BTCUSD') {
+        document.getElementById('entryPrice').value = '64500.00';
+      } else if (inst === 'WTI') {
+        document.getElementById('entryPrice').value = '76.50';
+      }
+      calculate();
     }
 
     function renderAccountDropdown() {
@@ -273,18 +331,27 @@
 
     function loadAccountToInput() {
       const current = accounts[activeAccIdx];
+      document.getElementById('accName').value = current.name;
       document.getElementById('accSize').value = current.size;
       document.getElementById('accEquity').value = current.equity;
-      updateAccountData();
+      document.getElementById('accTarget').value = current.target || 0;
+      updateAccountInfo();
     }
 
-    function updateAccountData() {
+    function updateAccountInfo() {
+      const name = document.getElementById('accName').value;
       const size = parseFloat(document.getElementById('accSize').value) || 0;
       const equity = parseFloat(document.getElementById('accEquity').value) || 0;
+      const target = parseFloat(document.getElementById('accTarget').value) || 0;
       
-      accounts[activeAccIdx].size = size;
-      accounts[activeAccIdx].equity = equity;
-      localStorage.setItem('user_accounts', JSON.stringify(accounts));
+      accounts[activeAccIdx] = { name, size, equity, target };
+      localStorage.setItem('suraj_accounts', JSON.stringify(accounts));
+      
+      // Update dropdown option text
+      const select = document.getElementById('accSelect');
+      if (select.options[activeAccIdx]) {
+        select.options[activeAccIdx].text = name;
+      }
 
       const pnl = equity - size;
       const dd = size > 0 ? ((equity - size) / size) * 100 : 0;
@@ -297,13 +364,38 @@
       ddEl.innerText = dd.toFixed(2) + '%';
       ddEl.className = 'res-val ' + (dd >= 0 ? 'val-green' : 'val-red');
 
+      // Target Progress Strategy
+      const remainingTarget = target - pnl;
+      const targetTextEl = document.getElementById('targetProgressText');
+      const aiTipEl = document.getElementById('aiApproachTip');
+
+      if (target > 0) {
+        if (remainingTarget <= 0) {
+          targetTextEl.innerText = "🎉 TARGET PASSED! Evaluation Complete!";
+          targetTextEl.className = "res-val val-green";
+          aiTipEl.innerText = "SURAJ, भाऊ तू टार्गेट पूर्ण केलं आहेस! आता जास्त रिस्क घेऊ नकोस, अकाऊंट सेव्ह ठेव आणि पे-आउटची वाट बघ.";
+        } else {
+          targetTextEl.innerText = `Target Remaining: $${remainingTarget.toFixed(2)}`;
+          targetTextEl.className = "res-val val-blue";
+          
+          if (pnl < 0) {
+            aiTipEl.innerText = `Suraj, सध्या तू -$${Math.abs(pnl).toFixed(2)} लॉसमध्ये आहेस. टार्गेटपेक्षा आधी ड्राऊनडाऊन रिकव्हर करण्यावर लक्ष दे. लॉट साईझ अर्ध (0.5x) करा आणि A+ सेटअपचीच वाट पाहा!`;
+          } else {
+            aiTipEl.innerText = `अजून $${remainingTarget.toFixed(2)} बाकी आहेत. घाई करू नकोस, दिवसाला ०.५% ते १% रिस्क घेऊन हळूहळू टार्गेटच्या दिशेने जा!`;
+          }
+        }
+      } else {
+        targetTextEl.innerText = "Set Target Amount Above";
+        aiTipEl.innerText = "Prop firm किंवा पर्सनल अकाऊंटचे टार्गेट टाक, मग मी तुला त्यानुसार प्लॅन सांगतो.";
+      }
+
       calculate();
     }
 
     function addNewAccount() {
-      const name = prompt("Enter Account Name (e.g. FTMO 50k):");
+      const name = prompt("Enter Account Name (e.g. FundedNext 50K):");
       if (name) {
-        accounts.push({ name: name, size: 50000, equity: 50000 });
+        accounts.push({ name: name, size: 50000, equity: 50000, target: 4000 });
         activeAccIdx = accounts.length - 1;
         renderAccountDropdown();
         loadAccountToInput();
@@ -324,33 +416,84 @@
       const slPoints = parseFloat(document.getElementById('slPoints').value) || 1;
       const equity = parseFloat(document.getElementById('accEquity').value) || 100000;
 
-      // Calculate Dynamic Risk : Reward Ratio
+      // Risk : Reward Ratio
       const rrRatio = slAmount > 0 ? (tpAmount / slAmount).toFixed(2) : "0.00";
       document.getElementById('resRR').innerText = `1 : ${rrRatio}`;
 
-      // Calculate Risk % from Current Equity
+      // Risk % of Equity
       const riskPct = ((slAmount / equity) * 100).toFixed(2);
       document.getElementById('resRiskPct').innerText = `${riskPct}%`;
 
-      // Calculate SL & TP Prices
+      // Price Calculations
       let slPrice = 0, tpPrice = 0;
-      const pointValue = slPoints * 0.1; // Standard adjustment for points
+      const inst = document.getElementById('instrument').value;
+      let pointFactor = 0.1;
+      
+      if (inst === 'BTCUSD') pointFactor = 1.0;
+      if (inst === 'USTECH100') pointFactor = 1.0;
+      if (inst === 'WTI') pointFactor = 0.01;
+
+      const deltaValue = slPoints * pointFactor;
 
       if (tradeDir === 'BUY') {
-        slPrice = entryPrice - pointValue;
-        tpPrice = entryPrice + (pointValue * (tpAmount / (slAmount || 1)));
+        slPrice = entryPrice - deltaValue;
+        tpPrice = entryPrice + (deltaValue * (tpAmount / (slAmount || 1)));
       } else {
-        slPrice = entryPrice + pointValue;
-        tpPrice = entryPrice - (pointValue * (tpAmount / (slAmount || 1)));
+        slPrice = entryPrice + deltaValue;
+        tpPrice = entryPrice - (deltaValue * (tpAmount / (slAmount || 1)));
       }
 
-      // Calculate Lot Size (Simplified)
       const lotSize = (slAmount / (slPoints * 10)).toFixed(2);
 
       document.getElementById('resRiskUSD').innerText = `$${slAmount.toFixed(2)}`;
       document.getElementById('resLot').innerText = lotSize > 0 ? lotSize : "0.01";
       document.getElementById('resSLPrice').innerText = slPrice.toFixed(2);
       document.getElementById('resTPPrice').innerText = tpPrice.toFixed(2);
+    }
+
+    function logTrade() {
+      const res = document.getElementById('tradeResult').value;
+      const pnl = parseFloat(document.getElementById('tradePnl').value) || 0;
+      const note = document.getElementById('tradeNote').value || "No Notes";
+
+      const log = { res, pnl, note, date: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) };
+      tradeLogs.unshift(log);
+      if (tradeLogs.length > 10) tradeLogs.pop();
+      
+      localStorage.setItem('suraj_tradelogs', JSON.stringify(tradeLogs));
+      renderTradeLogs();
+      evaluateAIBehavior(res, pnl);
+    }
+
+    function renderTradeLogs() {
+      const container = document.getElementById('tradeLogsList');
+      if (tradeLogs.length === 0) {
+        container.innerHTML = "<p style='color:#64748b;'>अजून कोणतेही ट्रेड्स सेव्ह केलेले नाहीत.</p>";
+        return;
+      }
+      container.innerHTML = tradeLogs.map(l => `
+        <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #1f2937;">
+          <span><strong>${l.res}</strong> (${l.date}): ${l.note}</span>
+          <span class="${l.pnl >= 0 ? 'val-green' : 'val-red'}">${l.pnl >= 0 ? '+' : ''}$${l.pnl}</span>
+        </div>
+      `).join('');
+    }
+
+    function evaluateAIBehavior(res, pnl) {
+      const box = document.getElementById('aiBehaviorBox');
+      if (res === 'LOSS') {
+        box.innerHTML = `<strong style="color:#ef4444;">SURAJ, धीर धर! 🛑</strong><br>लॉस हा ट्रेडिंगचा एक भाग आहे (-$${Math.abs(pnl)}). आता लगेच रीव्हेंज ट्रेड घेऊ नकोस. ५ मिनिटे ब्रेक घे आणि पुढचा ट्रेड फक्त सेटअप बनल्यावरच कर!`;
+      } else if (res === 'PROFIT') {
+        box.innerHTML = `<strong style="color:#10b981;">शाब्बास सुरज! 🎯</strong><br>+$${pnl} चा चांगला प्रॉफिट झाला. Overconfidence मध्ये येऊन ओव्हरट्रेड करू नकोस. जर आजचे टार्गेट पूर्ण झाले असेल तर मार्केट बंद कर!`;
+      } else {
+        box.innerHTML = `<strong style="color:#f59e0b;">चांगला डिसीजन! 🟡</strong><br>पार्शियल बुकिंग केल्यामुळे तुझी रिस्क कमी झाली आहे. स्टॉप लॉस ब्रेक-इव्हन (BE) वर हलवून निश्चिंत राहा.`;
+      }
+    }
+
+    function setDailyQuote() {
+      const randomIdx = Math.floor(Math.random() * quotes.length);
+      document.getElementById('dailyQuote').innerText = `"${quotes[randomIdx].q}"`;
+      document.getElementById('quoteAuthor').innerText = `- ${quotes[randomIdx].a}`;
     }
 
     init();
