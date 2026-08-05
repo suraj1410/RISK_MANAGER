@@ -3,369 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SURAJ FX - PRO TRADING SUITE & NEWS TERMINAL</title>
+  <title>SURAJ FX TERMINAL</title>
   <style>
-    :root {
-      --bg-primary: #060911;
-      --bg-card: #0d1322;
-      --bg-card-hover: #131c31;
-      --bg-input: #050810;
-      --accent-green: #00e676;
-      --accent-green-glow: rgba(0, 230, 118, 0.25);
-      --accent-blue: #38bdf8;
-      --accent-blue-glow: rgba(56, 189, 248, 0.25);
-      --accent-red: #ff5252;
-      --accent-red-glow: rgba(255, 82, 82, 0.25);
-      --accent-yellow: #ffd700;
-      --accent-purple: #a855f7;
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      --border-color: #1e293b;
-      --border-accent: #334155;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    
-    body { 
-      background-color: var(--bg-primary); 
-      color: var(--text-main); 
-      padding: 12px; 
-      max-width: 500px; 
-      margin: 0 auto; 
-      font-size: 14px;
-      -webkit-font-smoothing: antialiased;
-    }
-    
-    /* Header Bar */
-    .header { 
-      text-align: center; 
-      padding: 12px 16px; 
-      margin-bottom: 12px; 
-      background: linear-gradient(180deg, #111827 0%, var(--bg-primary) 100%);
-      border-bottom: 1px solid var(--border-color);
-      border-radius: 12px;
-    }
-    .header h1 { 
-      font-size: 1.35rem; 
-      color: var(--accent-green); 
-      letter-spacing: 1.5px; 
-      font-weight: 900; 
-      text-transform: uppercase;
-      text-shadow: 0 0 12px var(--accent-green-glow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    
-    /* Glassmorphism Cards */
-    .card { 
-      background: var(--bg-card); 
-      border: 1px solid var(--border-color); 
-      border-radius: 16px; 
-      padding: 16px; 
-      margin-bottom: 14px; 
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
-    }
-    
-    h2, h3 { 
-      color: var(--accent-blue); 
-      font-size: 1rem; 
-      margin-bottom: 12px; 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-    
-    label { 
-      font-size: 0.72rem; 
-      color: var(--text-muted); 
-      margin-bottom: 5px; 
-      display: block; 
-      font-weight: 700; 
-      text-transform: uppercase; 
-      letter-spacing: 0.8px; 
-    }
-    
-    input, select, textarea { 
-      width: 100%; 
-      padding: 11px; 
-      background: var(--bg-input); 
-      border: 1px solid var(--border-accent); 
-      color: #fff; 
-      border-radius: 10px; 
-      font-size: 0.9rem; 
-      margin-bottom: 10px; 
-      outline: none; 
-      transition: all 0.2s ease;
-    }
-    
-    input:focus, select:focus { 
-      border-color: var(--accent-blue); 
-      box-shadow: 0 0 8px var(--accent-blue-glow);
-    }
-    
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-    
-    /* Sleek Buttons */
-    .btn { 
-      width: 100%; 
-      padding: 12px; 
-      border: none; 
-      border-radius: 10px; 
-      font-weight: 800; 
-      cursor: pointer; 
-      font-size: 0.9rem; 
-      transition: all 0.2s ease; 
-      letter-spacing: 0.5px;
-    }
-    .btn-buy { 
-      background: linear-gradient(135deg, #0284c7, #0369a1); 
-      color: #fff; 
-      box-shadow: 0 4px 12px var(--accent-blue-glow);
-    }
-    .btn-sell { 
-      background: linear-gradient(135deg, #dc2626, #b91c1c); 
-      color: #fff; 
-      box-shadow: 0 4px 12px var(--accent-red-glow);
-    }
-    .btn-calc { 
-      background: linear-gradient(135deg, #10b981 0%, #0284c7 100%); 
-      color: #fff; 
-      font-size: 1.05rem; 
-      margin-top: 8px; 
-      font-weight: 900; 
-      box-shadow: 0 4px 15px var(--accent-green-glow);
-    }
-    .btn-sm { 
-      background: #1e293b; 
-      color: var(--accent-blue); 
-      padding: 6px 12px; 
-      font-size: 0.75rem; 
-      border-radius: 8px; 
-      border: 1px solid var(--border-accent);
-    }
-    .btn-action { 
-      background: linear-gradient(135deg, #10b981, #059669); 
-      color: #fff; 
-      margin-top: 6px; 
-    }
-
-    /* Result Cards */
-    .res-box { 
-      background: var(--bg-input); 
-      padding: 10px 8px; 
-      border-radius: 10px; 
-      text-align: center; 
-      border: 1px solid var(--border-color); 
-    }
-    .res-val { font-size: 1.05rem; font-weight: 800; margin-top: 2px; }
-    
-    .val-green { color: var(--accent-green); }
-    .val-red { color: var(--accent-red); }
-    .val-blue { color: var(--accent-blue); }
-    .val-yellow { color: var(--accent-yellow); }
-
-    .broker-tag { 
-      background: rgba(16, 185, 129, 0.12); 
-      color: var(--accent-green); 
-      border: 1px solid rgba(16, 185, 129, 0.3); 
-      padding: 4px 10px; 
-      border-radius: 8px; 
-      font-size: 0.72rem; 
-      font-weight: 800; 
-    }
-    .ai-badge { 
-      background: linear-gradient(90deg, var(--accent-purple), #ec4899); 
-      color: #fff; 
-      padding: 3px 10px; 
-      border-radius: 12px; 
-      font-size: 0.65rem; 
-      font-weight: 800; 
-      letter-spacing: 0.5px;
-    }
-
-    /* Bottom Navigation Tabs */
-    .nav-tabs { 
-      display: flex; 
-      justify-content: space-around; 
-      position: fixed; 
-      bottom: 0; 
-      left: 50%; 
-      transform: translateX(-50%); 
-      width: 100%; 
-      max-width: 500px; 
-      background: rgba(13, 19, 34, 0.95); 
-      border-top: 1px solid var(--border-color); 
-      padding: 8px 0 10px 0; 
-      z-index: 100; 
-      backdrop-filter: blur(15px);
-    }
-    .tab-btn { 
-      background: none; 
-      border: none; 
-      color: var(--text-muted); 
-      font-size: 0.68rem; 
-      cursor: pointer; 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center; 
-      gap: 3px; 
-      transition: all 0.2s;
-    }
-    .tab-btn.active { 
-      color: var(--accent-blue); 
-      font-weight: 800; 
-      transform: translateY(-2px);
-    }
-    .tab-btn span { font-size: 0.68rem; }
-    .tab-icon { font-size: 1.15rem; }
-    
-    .page { display: none; padding-bottom: 75px; }
-    .page.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .live-dot { 
-      height: 8px; 
-      width: 8px; 
-      background-color: var(--accent-green); 
-      border-radius: 50%; 
-      display: inline-block; 
-      box-shadow: 0 0 10px var(--accent-green); 
-      margin-right: 4px; 
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 230, 118, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
-    }
-
-    /* Global News Stream UI Elements */
-    .news-card {
-      background: var(--bg-input);
-      border-left: 3px solid var(--accent-blue);
-      border-radius: 8px;
-      padding: 10px 12px;
-      margin-bottom: 10px;
-    }
-    .news-card.war { border-left-color: var(--accent-red); }
-    .news-card.trump { border-left-color: var(--accent-yellow); }
-    .news-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-    .news-source {
-      font-size: 0.68rem;
-      font-weight: 800;
-      color: var(--accent-blue);
-      text-transform: uppercase;
-    }
-    .news-time {
-      font-size: 0.65rem;
-      color: var(--text-muted);
-    }
-    .news-title {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-main);
-      line-height: 1.35;
-      margin-bottom: 4px;
-    }
-    .news-body {
-      font-size: 0.78rem;
-      color: #cbd5e1;
-      line-height: 1.3;
-    }
-
-    /* Forex Factory Economic Calendar UI */
-    .calendar-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--bg-input);
-      padding: 10px;
-      border-radius: 10px;
-      margin-bottom: 8px;
-      border: 1px solid var(--border-color);
-    }
-    .folder-icon {
-      width: 14px;
-      height: 14px;
-      border-radius: 3px;
-      display: inline-block;
-      margin-right: 8px;
-    }
-    .folder-red { background-color: var(--accent-red); box-shadow: 0 0 8px var(--accent-red-glow); }
-    .folder-yellow { background-color: var(--accent-yellow); box-shadow: 0 0 8px rgba(255, 215, 0, 0.3); }
-
-    .cal-time { font-size: 0.72rem; color: var(--text-muted); font-weight: 700; width: 55px; }
-    .cal-currency { font-size: 0.78rem; font-weight: 800; color: #fff; width: 45px; }
-    .cal-event { flex-grow: 1; font-size: 0.8rem; font-weight: 600; color: #e2e8f0; }
-    .cal-vals { font-size: 0.72rem; text-align: right; line-height: 1.2; }
-
-    .filter-btn {
-      background: var(--bg-input);
-      border: 1px solid var(--border-accent);
-      color: var(--text-muted);
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .filter-btn.active {
-      background: var(--accent-blue);
-      color: #000;
-      border-color: var(--accent-blue);
-    }
+    :root { --bg: #060911; --card: #0d1322; --green: #00e676; --blue: #38bdf8; --red: #ff5252; --text: #f1f5f9; --border: #1e293b; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 12px; max-width: 500px; margin: 0 auto; font-size: 14px; }
+    .header { text-align: center; padding: 10px; margin-bottom: 12px; background: #111827; border-radius: 10px; border-bottom: 1px solid var(--border); }
+    .header h1 { font-size: 1.2rem; color: var(--green); letter-spacing: 1px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+    h2, h3 { color: var(--blue); font-size: 0.95rem; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+    label { font-size: 0.7rem; color: #94a3b8; display: block; margin-bottom: 4px; font-weight: 700; text-transform: uppercase; }
+    input, select { width: 100%; padding: 10px; background: #050810; border: 1px solid #334155; color: #fff; border-radius: 8px; font-size: 0.85rem; margin-bottom: 8px; outline: none; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+    .btn { width: 100%; padding: 10px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.85rem; }
+    .btn-buy { background: #0284c7; color: #fff; }
+    .btn-sell { background: #dc2626; color: #fff; }
+    .btn-calc { background: linear-gradient(135deg, #10b981, #0284c7); color: #fff; margin-top: 6px; }
+    .res-box { background: #050810; padding: 8px 6px; border-radius: 8px; text-align: center; border: 1px solid var(--border); }
+    .res-val { font-size: 0.95rem; font-weight: 800; margin-top: 2px; }
+    .val-green { color: var(--green); }
+    .val-red { color: var(--red); }
+    .val-blue { color: var(--blue); }
+    .nav-tabs { display: flex; justify-content: space-around; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; background: #0d1322; border-top: 1px solid var(--border); padding: 8px 0; z-index: 100; }
+    .tab-btn { background: none; border: none; color: #94a3b8; font-size: 0.65rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .tab-btn.active { color: var(--blue); font-weight: 800; }
+    .page { display: none; padding-bottom: 60px; }
+    .page.active { display: block; }
+    .news-card { background: #050810; border-left: 3px solid var(--blue); border-radius: 6px; padding: 8px 10px; margin-bottom: 8px; }
+    .news-card.war { border-left-color: var(--red); }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <h1>SURAJ FX <span>⚡</span> TERMINAL</h1>
-  </div>
+  <div class="header"><h1>SURAJ FX TERMINAL ⚡</h1></div>
 
-  <!-- 1. CALCULATOR PAGE -->
+  <!-- CALCULATOR -->
   <div id="page-calc" class="page active">
     <div class="card">
-      <h3>
-        <span>🧮 Calculator</span>
-        <span class="broker-tag"><span class="live-dot"></span>OANDA</span>
-      </h3>
-      
+      <h3>🧮 Trading Calculator</h3>
       <div class="grid-2">
         <div>
           <label>Instrument</label>
-          <select id="instrument" disabled>
+          <select id="instrument" onchange="fetchLivePrice()">
+            <option value="USTECH100">US Tech 100 Cash (NDX)</option>
             <option value="XAUUSD">XAUUSD (Gold)</option>
+            <option value="BTCUSD">BTCUSD (Bitcoin)</option>
+            <option value="EURUSD">EURUSD</option>
           </select>
         </div>
         <div>
           <label>Direction</label>
           <div class="grid-2">
-            <button class="btn btn-buy" id="btnBuy" onclick="setDir('BUY')">BUY ↑</button>
-            <button class="btn btn-sell" id="btnSell" style="opacity: 0.4;" onclick="setDir('SELL')">SELL ↓</button>
+            <button class="btn btn-buy" id="btnBuy" onclick="setDir('BUY')">BUY</button>
+            <button class="btn btn-sell" id="btnSell" style="opacity: 0.4;" onclick="setDir('SELL')">SELL</button>
           </div>
         </div>
       </div>
 
       <div class="grid-3">
         <div>
-          <label>Entry Price <span id="liveStatus" class="val-green">(LIVE)</span></label>
-          <input type="number" id="entryPrice" value="2415.70" step="any" oninput="calculate()">
+          <label>Entry Price</label>
+          <input type="number" id="entryPrice" value="29749.30" step="any" oninput="calculate()">
         </div>
         <div>
           <label>Stop Loss ($)</label>
@@ -378,517 +77,110 @@
       </div>
 
       <div>
-        <label>Stop Loss Distance (Points / Pips)</label>
+        <label>SL Points / Pips</label>
         <input type="number" id="slPoints" value="100" oninput="calculate()">
       </div>
 
-      <button class="btn btn-calc" onclick="calculate()">CALCULATE RISK 🚀</button>
+      <button class="btn btn-calc" onclick="calculate()">CALCULATE RISK</button>
     </div>
 
-    <!-- RESULTS CARD -->
     <div class="card">
-      <h3>🎯 Execution Results</h3>
+      <h3>🎯 Results</h3>
       <div class="grid-3">
-        <div class="res-box">
-          <label>Risk Amount</label>
-          <div id="resRiskUSD" class="res-val val-red">$500.00</div>
-        </div>
-        <div class="res-box">
-          <label>Risk %</label>
-          <div id="resRiskPct" class="res-val">0.50%</div>
-        </div>
-        <div class="res-box">
-          <label>Lot Size</label>
-          <div id="resLot" class="res-val val-green">0.50</div>
-        </div>
+        <div class="res-box"><label>Risk USD</label><div id="resRiskUSD" class="res-val val-red">$500.00</div></div>
+        <div class="res-box"><label>Risk %</label><div id="resRiskPct" class="res-val">0.50%</div></div>
+        <div class="res-box"><label>Lot Size</label><div id="resLot" class="res-val val-green">0.50</div></div>
       </div>
-
-      <div class="grid-3" style="margin-top: 8px;">
-        <div class="res-box">
-          <label>SL Price</label>
-          <div id="resSLPrice" class="res-val">2405.70</div>
-        </div>
-        <div class="res-box">
-          <label>TP Price</label>
-          <div id="resTPPrice" class="res-val">2445.70</div>
-        </div>
-        <div class="res-box">
-          <label>Risk : Reward</label>
-          <div id="resRR" class="res-val val-blue">1 : 3.00</div>
-        </div>
+      <div class="grid-3" style="margin-top: 6px;">
+        <div class="res-box"><label>SL Price</label><div id="resSLPrice" class="res-val">29649.30</div></div>
+        <div class="res-box"><label>TP Price</label><div id="resTPPrice" class="res-val">30049.30</div></div>
+        <div class="res-box"><label>R : R</label><div id="resRR" class="res-val val-blue">1 : 3.00</div></div>
       </div>
     </div>
   </div>
 
-  <!-- 2. GLOBAL WORLD & MACRO NEWS STREAM -->
-  <div id="page-globalnews" class="page">
+  <!-- WORLD NEWS -->
+  <div id="page-news" class="page">
     <div class="card">
-      <h3>
-        <span>🌐 Global Macro Terminal</span>
-        <span class="broker-tag" style="color:var(--accent-blue); border-color:var(--accent-blue);"><span class="live-dot" style="background-color:var(--accent-blue);"></span>LIVE WIRE</span>
-      </h3>
-      <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:12px;">Real-time economic, geopolitical, Trump policy updates & market alerts with verified sources.</p>
-      
-      <div style="display:flex; gap:6px; margin-bottom:12px; overflow-x:auto; padding-bottom:4px;">
-        <button class="filter-btn active" onclick="filterNews('ALL')">All News</button>
-        <button class="filter-btn" onclick="filterNews('TRUMP')">Trump & US Policy</button>
-        <button class="filter-btn" onclick="filterNews('WAR')">Geopolitical / War</button>
-        <button class="filter-btn" onclick="filterNews('FED')">Fed / Central Banks</button>
+      <h3>🌐 Global News Feed</h3>
+      <div class="news-card">
+        <strong style="color:var(--blue); font-size:0.75rem;">REUTERS</strong>
+        <p style="font-size:0.8rem; font-weight:700;">US Trade Policy & Tariff Updates Announcement</p>
+        <p style="font-size:0.72rem; color:#cbd5e1;">Gold safe-haven demand spikes while US Tech 100 stays volatile.</p>
       </div>
-
-      <div id="globalNewsContainer"></div>
-    </div>
-  </div>
-
-  <!-- 3. FOREX FACTORY CALENDAR -->
-  <div id="page-forexfactory" class="page">
-    <div class="card">
-      <h3>
-        <span>📅 Economic Calendar</span>
-        <span class="ai-badge">HIGH IMPACT</span>
-      </h3>
-      <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:12px;">Filtered exclusively for High Impact (🔴 Red) & Medium Impact (🟡 Yellow) folders.</p>
-
-      <div id="ffCalendarContainer"></div>
-    </div>
-  </div>
-
-  <!-- 4. DASHBOARD PAGE -->
-  <div id="page-dashboard" class="page">
-    <div class="card">
-      <h3>
-        <span>📂 Accounts Dashboard</span>
-        <button class="btn-sm" onclick="addNewAccount()">+ New Account</button>
-      </h3>
-      
-      <label>Active Account</label>
-      <select id="accSelect" onchange="switchAccount()"></select>
-
-      <label>Account Name (Editable)</label>
-      <input type="text" id="accName" onchange="updateAccountInfo()">
-
-      <div class="grid-2">
-        <div>
-          <label>Account Size ($)</label>
-          <input type="number" id="accSize" oninput="updateAccountInfo()">
-        </div>
-        <div>
-          <label>Current Equity ($)</label>
-          <input type="number" id="accEquity" oninput="updateAccountInfo()">
-        </div>
-      </div>
-
-      <label>Prop Evaluation Target ($)</label>
-      <input type="number" id="accTarget" placeholder="e.g. 10000" oninput="updateAccountInfo()">
-
-      <div class="grid-2" style="margin-top: 6px;">
-        <div class="res-box">
-          <label>Profit / Loss</label>
-          <div id="pnlVal" class="res-val">$0.00</div>
-        </div>
-        <div class="res-box">
-          <label>Drawdown %</label>
-          <div id="ddVal" class="res-val">0.00%</div>
-        </div>
-      </div>
-
-      <div class="res-box" style="margin-top: 10px; text-align: left; padding: 12px;">
-        <label>Target Progress & AI Strategy <span class="ai-badge">AI GUIDE</span></label>
-        <div id="targetProgressText" class="res-val val-blue" style="font-size: 0.85rem; margin-bottom: 4px;">Target Remaining: $0.00</div>
-        <p id="aiApproachTip" style="font-size: 0.78rem; color: #d1d5db; line-height: 1.35;"></p>
+      <div class="news-card war">
+        <strong style="color:var(--red); font-size:0.75rem;">BLOOMBERG</strong>
+        <p style="font-size:0.8rem; font-weight:700;">Geopolitical Tensions Drive Crude & Metals</p>
+        <p style="font-size:0.72rem; color:#cbd5e1;">Global supply chains adjust to maritime geopolitical risks.</p>
       </div>
     </div>
   </div>
 
-  <!-- 5. TRADE JOURNAL PAGE -->
-  <div id="page-journal" class="page">
-    <div class="card">
-      <h3>📝 Add Trade Output</h3>
-      <label>Select Result</label>
-      <select id="tradeResult">
-        <option value="PROFIT">Profit 🟢</option>
-        <option value="LOSS">Loss 🔴</option>
-        <option value="PARTIAL">Partial Booking 🟡</option>
-      </select>
-
-      <label>Profit / Loss Amount ($)</label>
-      <input type="number" id="tradePnl" placeholder="e.g. +300 or -100">
-
-      <label>Notes / Emotions</label>
-      <input type="text" id="tradeNote" placeholder="e.g. Followed plan, FOMO entry, etc.">
-
-      <button class="btn btn-action" onclick="logTrade()">LOG TRADE & EVALUATE 🧠</button>
-    </div>
-
-    <div class="card">
-      <h3>
-        <span>🧠 AI Behavioral Coach</span>
-        <span class="ai-badge">SURAJ AI</span>
-      </h3>
-      <div id="aiBehaviorBox" style="font-size: 0.85rem; color: #e2e8f0; line-height: 1.4; padding: 4px;">
-        SURAJ, तुझे ट्रेड्स इथे लॉग कर. मी तुझा ट्रेडिंग बिहेव्हिअर चेक करून तुला गाइड करेल!
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>📊 Recent Trade Logs</h3>
-      <div id="tradeLogsList" style="font-size: 0.8rem;"></div>
-    </div>
-  </div>
-
-  <!-- NAVIGATION TABS -->
+  <!-- NAVIGATION -->
   <div class="nav-tabs">
-    <button class="tab-btn active" onclick="showPage('calc', this)">
-      <span class="tab-icon">🧮</span><span>Calc</span>
-    </button>
-    <button class="tab-btn" onclick="showPage('globalnews', this)">
-      <span class="tab-icon">🌐</span><span>World News</span>
-    </button>
-    <button class="tab-btn" onclick="showPage('forexfactory', this)">
-      <span class="tab-icon">📅</span><span>FF Calendar</span>
-    </button>
-    <button class="tab-btn" onclick="showPage('dashboard', this)">
-      <span class="tab-icon">📊</span><span>Dashboard</span>
-    </button>
-    <button class="tab-btn" onclick="showPage('journal', this)">
-      <span class="tab-icon">📝</span><span>Journal</span>
-    </button>
+    <button class="tab-btn active" onclick="showPage('calc', this)"><span>🧮 Calc</span></button>
+    <button class="tab-btn" onclick="showPage('news', this)"><span>🌐 News</span></button>
   </div>
 
   <script>
     let tradeDir = 'BUY';
-    let accounts = JSON.parse(localStorage.getItem('suraj_accounts')) || [
-      { name: "FTMO 100K Account", size: 100000, equity: 100000, target: 10000 }
-    ];
-    let activeAccIdx = 0;
-    let tradeLogs = JSON.parse(localStorage.getItem('suraj_tradelogs')) || [];
 
-    const rawGlobalNews = [
-      {
-        type: "TRUMP",
-        source: "Reuters / Bloomberg",
-        time: "10 mins ago",
-        title: "Trump Signals New 15% Universal Tariff Proposal on Imports",
-        body: "US President Donald Trump announced plans for adjusted trade tariffs targeting European and Asian imports. Gold (XAUUSD) spiked +$12 on safe-haven demand while USD Index fluctuates."
-      },
-      {
-        type: "WAR",
-        source: "AP News / Financial Times",
-        time: "25 mins ago",
-        title: "Middle East Tension Escalates; Red Sea Maritime Risk Index Rises",
-        body: "Naval skirmishes reported near key trade shipping lanes. Crude Oil gains 2.4% while Gold approaches key intraday resistance levels."
-      },
-      {
-        type: "FED",
-        source: "CNBC / Federal Reserve Wire",
-        time: "1 hour ago",
-        title: "Fed Chairman Powell Reaffirms Data-Dependent Rate Path",
-        body: "Jerome Powell stated central bank will strictly observe upcoming CPI & Non-Farm Payrolls before making rate decision. US Treasury 10-Yr yields ease slightly."
-      },
-      {
-        type: "WAR",
-        source: "BBC World / Wall Street Journal",
-        time: "2 hours ago",
-        title: "Eastern Europe Ceasefire Talks Stalemate",
-        body: "Diplomatic talks encounter barriers over territorial sovereignty. Defense stocks firm up globally."
-      },
-      {
-        type: "TRUMP",
-        source: "MarketWatch / ForexLive",
-        time: "3 hours ago",
-        title: "Trump Executive Order Aimed at Deregulating Financial Sector Drafted",
-        body: "Proposed easing of bank capital requirements triggers rally in US equity futures and banking indices."
-      }
-    ];
-
-    const ffCalendarData = [
-      {
-        time: "18:00 IST",
-        currency: "USD",
-        folder: "red",
-        event: "Core CPI m/m (Consumer Price Index)",
-        forecast: "0.3%",
-        previous: "0.2%"
-      },
-      {
-        time: "18:00 IST",
-        currency: "USD",
-        folder: "red",
-        event: "CPI y/y Inflation Rate",
-        forecast: "2.9%",
-        previous: "3.0%"
-      },
-      {
-        time: "19:00 IST",
-        currency: "USD",
-        folder: "yellow",
-        event: "Final Wholesale Inventories m/m",
-        forecast: "0.1%",
-        previous: "0.2%"
-      },
-      {
-        time: "20:00 IST",
-        currency: "USD",
-        folder: "red",
-        event: "FOMC Member Speech (Fed Monetary Guidance)",
-        forecast: "High Volatility",
-        previous: "-"
-      },
-      {
-        time: "23:30 IST",
-        currency: "USD",
-        folder: "yellow",
-        event: "10-Year Bond Auction",
-        forecast: "-",
-        previous: "4.12% | 2.5x"
-      }
-    ];
-
-    function init() {
-      renderAccountDropdown();
-      loadAccountToInput();
-      startLiveGoldPriceStream();
-      renderTradeLogs();
-      renderGlobalNews('ALL');
-      renderFFCalendar();
-      calculate();
+    function showPage(p, btn) {
+      document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById('page-' + p).classList.add('active');
+      if(btn) btn.classList.add('active');
     }
 
-    function showPage(pageId, btnEl) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('page-' + pageId).classList.add('active');
-      if (btnEl) btnEl.classList.add('active');
-    }
-
-    let baseGoldPrice = 2415.70;
-    function startLiveGoldPriceStream() {
-      setInterval(() => {
-        let tickDelta = (Math.random() * 0.40 - 0.20);
-        baseGoldPrice = parseFloat((baseGoldPrice + tickDelta).toFixed(2));
-        
-        const entryInput = document.getElementById('entryPrice');
-        if (document.activeElement !== entryInput) {
-          entryInput.value = baseGoldPrice.toFixed(2);
-          calculate();
+    async function fetchLivePrice() {
+      const sym = document.getElementById('instrument').value;
+      const inp = document.getElementById('entryPrice');
+      try {
+        let p = 0;
+        if (sym === 'USTECH100') {
+          const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=NDXUSDT');
+          const d = await res.json();
+          p = parseFloat(d.price);
+        } else if (sym === 'BTCUSD') {
+          const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+          const d = await res.json();
+          p = parseFloat(d.price);
+        } else if (sym === 'XAUUSD') {
+          const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT');
+          const d = await res.json();
+          p = parseFloat(d.price);
         }
-      }, 2000);
+        if (p > 0) { inp.value = p.toFixed(2); calculate(); }
+      } catch(e) {}
     }
 
-    function renderGlobalNews(filterCategory) {
-      const container = document.getElementById('globalNewsContainer');
-      let filtered = rawGlobalNews;
-      if (filterCategory !== 'ALL') {
-        filtered = rawGlobalNews.filter(n => n.type === filterCategory);
-      }
-
-      container.innerHTML = filtered.map(news => {
-        let cardClass = "news-card";
-        if (news.type === 'WAR') cardClass += " war";
-        if (news.type === 'TRUMP') cardClass += " trump";
-
-        return `
-          <div class="${cardClass}">
-            <div class="news-header">
-              <span class="news-source">📌 ${news.source}</span>
-              <span class="news-time">⏱️ ${news.time}</span>
-            </div>
-            <div class="news-title">${news.title}</div>
-            <div class="news-body">${news.body}</div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function filterNews(cat) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
-      renderGlobalNews(cat);
-    }
-
-    function renderFFCalendar() {
-      const container = document.getElementById('ffCalendarContainer');
-      container.innerHTML = ffCalendarData.map(item => `
-        <div class="calendar-row">
-          <div style="display:flex; align-items:center;">
-            <span class="folder-icon folder-${item.folder}"></span>
-            <span class="cal-time">${item.time}</span>
-            <span class="cal-currency">${item.currency}</span>
-          </div>
-          <div class="cal-event">${item.event}</div>
-          <div class="cal-vals">
-            <div style="color:var(--accent-green);">F: ${item.forecast}</div>
-            <div style="color:var(--text-muted);">P: ${item.previous}</div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function renderAccountDropdown() {
-      const select = document.getElementById('accSelect');
-      select.innerHTML = '';
-      accounts.forEach((acc, i) => {
-        select.innerHTML += `<option value="${i}">${acc.name}</option>`;
-      });
-      select.value = activeAccIdx;
-    }
-
-    function switchAccount() {
-      activeAccIdx = document.getElementById('accSelect').value;
-      loadAccountToInput();
-      calculate();
-    }
-
-    function loadAccountToInput() {
-      const current = accounts[activeAccIdx];
-      document.getElementById('accName').value = current.name;
-      document.getElementById('accSize').value = current.size;
-      document.getElementById('accEquity').value = current.equity;
-      document.getElementById('accTarget').value = current.target || 0;
-      updateAccountInfo();
-    }
-
-    function updateAccountInfo() {
-      const name = document.getElementById('accName').value;
-      const size = parseFloat(document.getElementById('accSize').value) || 0;
-      const equity = parseFloat(document.getElementById('accEquity').value) || 0;
-      const target = parseFloat(document.getElementById('accTarget').value) || 0;
-      
-      accounts[activeAccIdx] = { name, size, equity, target };
-      localStorage.setItem('suraj_accounts', JSON.stringify(accounts));
-      
-      const select = document.getElementById('accSelect');
-      if (select.options[activeAccIdx]) {
-        select.options[activeAccIdx].text = name;
-      }
-
-      const pnl = equity - size;
-      const dd = size > 0 ? ((equity - size) / size) * 100 : 0;
-
-      const pnlEl = document.getElementById('pnlVal');
-      pnlEl.innerText = (pnl >= 0 ? '+$' : '-$') + Math.abs(pnl).toFixed(2);
-      pnlEl.className = 'res-val ' + (pnl >= 0 ? 'val-green' : 'val-red');
-
-      const ddEl = document.getElementById('ddVal');
-      ddEl.innerText = dd.toFixed(2) + '%';
-      ddEl.className = 'res-val ' + (dd >= 0 ? 'val-green' : 'val-red');
-
-      const remainingTarget = target - pnl;
-      const targetTextEl = document.getElementById('targetProgressText');
-      const aiTipEl = document.getElementById('aiApproachTip');
-
-      if (target > 0) {
-        if (remainingTarget <= 0) {
-          targetTextEl.innerText = "🎉 TARGET PASSED! Evaluation Complete!";
-          targetTextEl.className = "res-val val-green";
-          aiTipEl.innerText = "SURAJ, भाऊ तू टार्गेट पूर्ण केलं आहेस! आता जास्त रिस्क घेऊ नकोस, अकाऊंट सेव्ह ठेव आणि पे-आउटची वाट बघ.";
-        } else {
-          targetTextEl.innerText = `Target Remaining: $${remainingTarget.toFixed(2)}`;
-          targetTextEl.className = "res-val val-blue";
-          
-          if (pnl < 0) {
-            aiTipEl.innerText = `Suraj, सध्या तू -$${Math.abs(pnl).toFixed(2)} लॉसमध्ये आहेस. टार्गेटपेक्षा आधी ड्राऊनडाऊन रिकव्हर करण्यावर लक्ष दे. लॉट साईझ 0.5x करा आणि A+ सेटअपची वाट पाहा!`;
-          } else {
-            aiTipEl.innerText = `अजून $${remainingTarget.toFixed(2)} बाकी आहेत. घाई करू नकोस, दिवसाला ०.५% ते १% रिस्क घेऊन हळूहळू टार्गेटच्या दिशेने जा!`;
-          }
-        }
-      } else {
-        targetTextEl.innerText = "Set Target Amount Above";
-        aiTipEl.innerText = "Prop firm किंवा पर्सनल अकाऊंटचे टार्गेट टाक, मग मी तुला त्यानुसार प्लॅन सांगतो.";
-      }
-
-      calculate();
-    }
-
-    function addNewAccount() {
-      const name = prompt("Enter Account Name (e.g. FundedNext 50K):");
-      if (name) {
-        accounts.push({ name: name, size: 50000, equity: 50000, target: 4000 });
-        activeAccIdx = accounts.length - 1;
-        renderAccountDropdown();
-        loadAccountToInput();
-      }
-    }
-
-    function setDir(dir) {
-      tradeDir = dir;
-      document.getElementById('btnBuy').style.opacity = dir === 'BUY' ? '1' : '0.4';
-      document.getElementById('btnSell').style.opacity = dir === 'SELL' ? '1' : '0.4';
+    function setDir(d) {
+      tradeDir = d;
+      document.getElementById('btnBuy').style.opacity = d === 'BUY' ? '1' : '0.4';
+      document.getElementById('btnSell').style.opacity = d === 'SELL' ? '1' : '0.4';
       calculate();
     }
 
     function calculate() {
-      const slAmount = parseFloat(document.getElementById('slAmount').value) || 0;
-      const tpAmount = parseFloat(document.getElementById('tpAmount').value) || 0;
-      const entryPrice = parseFloat(document.getElementById('entryPrice').value) || 0;
-      const slPoints = parseFloat(document.getElementById('slPoints').value) || 1;
-      const equity = parseFloat(document.getElementById('accEquity').value) || 100000;
+      const sl = parseFloat(document.getElementById('slAmount').value) || 0;
+      const tp = parseFloat(document.getElementById('tpAmount').value) || 0;
+      const entry = parseFloat(document.getElementById('entryPrice').value) || 0;
+      const pts = parseFloat(document.getElementById('slPoints').value) || 1;
 
-      const rrRatio = slAmount > 0 ? (tpAmount / slAmount).toFixed(2) : "0.00";
-      document.getElementById('resRR').innerText = `1 : ${rrRatio}`;
-
-      const riskPct = ((slAmount / equity) * 100).toFixed(2);
-      document.getElementById('resRiskPct').innerText = `${riskPct}%`;
-
-      let slPrice = 0, tpPrice = 0;
-      const deltaValue = slPoints * 0.1;
-
-      if (tradeDir === 'BUY') {
-        slPrice = entryPrice - deltaValue;
-        tpPrice = entryPrice + (deltaValue * (tpAmount / (slAmount || 1)));
-      } else {
-        slPrice = entryPrice + deltaValue;
-        tpPrice = entryPrice - (deltaValue * (tpAmount / (slAmount || 1)));
-      }
-
-      const lotSize = (slAmount / (slPoints * 10)).toFixed(2);
-
-      document.getElementById('resRiskUSD').innerText = `$${slAmount.toFixed(2)}`;
-      document.getElementById('resLot').innerText = lotSize > 0 ? lotSize : "0.01";
-      document.getElementById('resSLPrice').innerText = slPrice.toFixed(2);
-      document.getElementById('resTPPrice').innerText = tpPrice.toFixed(2);
-    }
-
-    function logTrade() {
-      const res = document.getElementById('tradeResult').value;
-      const pnl = parseFloat(document.getElementById('tradePnl').value) || 0;
-      const note = document.getElementById('tradeNote').value || "No Notes";
-
-      const log = { res, pnl, note, date: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) };
-      tradeLogs.unshift(log);
-      if (tradeLogs.length > 10) tradeLogs.pop();
+      document.getElementById('resRR').innerText = `1 : ${(tp / (sl || 1)).toFixed(2)}`;
+      document.getElementById('resLot').innerText = (sl / (pts * 10)).toFixed(2);
       
-      localStorage.setItem('suraj_tradelogs', JSON.stringify(tradeLogs));
-      renderTradeLogs();
-      evaluateAIBehavior(res, pnl);
-    }
-
-    function renderTradeLogs() {
-      const container = document.getElementById('tradeLogsList');
-      if (tradeLogs.length === 0) {
-        container.innerHTML = "<p style='color:var(--text-muted);'>अजून कोणतेही ट्रेड्स सेव्ह केलेले नाहीत.</p>";
-        return;
-      }
-      container.innerHTML = tradeLogs.map(l => `
-        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border-color);">
-          <span><strong>${l.res}</strong> (${l.date}): ${l.note}</span>
-          <span class="${l.pnl >= 0 ? 'val-green' : 'val-red'}">${l.pnl >= 0 ? '+' : ''}$${l.pnl}</span>
-        </div>
-      `).join('');
-    }
-
-    function evaluateAIBehavior(res, pnl) {
-      const box = document.getElementById('aiBehaviorBox');
-      if (res === 'LOSS') {
-        box.innerHTML = `<strong style="color:var(--accent-red);">SURAJ, धीर धर! 🛑</strong><br>लॉस हा ट्रेडिंगचा एक भाग आहे (-$${Math.abs(pnl)}). आता लगेच रीव्हेंज ट्रेड घेऊ नकोस. ५ मिनिटे ब्रेक घे आणि पुढचा ट्रेड फक्त सेटअप बनल्यावरच कर!`;
-      } else if (res === 'PROFIT') {
-        box.innerHTML = `<strong style="color:var(--accent-green);">शाब्बास सुरज! 🎯</strong><br>+$${pnl} चा चांगला प्रॉफिट झाला. Overconfidence मध्ये येऊन ओव्हरट्रेड करू नकोस. जर आजचे टार्गेट पूर्ण झाले असेल तर मार्केट बंद कर!`;
+      const delta = pts * 0.1;
+      if (tradeDir === 'BUY') {
+        document.getElementById('resSLPrice').innerText = (entry - delta).toFixed(2);
+        document.getElementById('resTPPrice').innerText = (entry + (delta * (tp / (sl || 1)))).toFixed(2);
       } else {
-        box.innerHTML = `<strong style="color:var(--accent-yellow);">चांगला डिसीजन! 🟡</strong><br>पार्शियल बुकिंग केल्यामुळे तुझी रिस्क कमी झाली आहे. स्टॉप लॉस ब्रेक-इव्हन (BE) वर हलवून निश्चिंत राहा.`;
+        document.getElementById('resSLPrice').innerText = (entry + delta).toFixed(2);
+        document.getElementById('resTPPrice').innerText = (entry - (delta * (tp / (sl || 1)))).toFixed(2);
       }
     }
 
-    init();
+    calculate();
   </script>
 </body>
 </html>
